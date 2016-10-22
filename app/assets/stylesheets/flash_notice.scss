@@ -1,0 +1,29 @@
+@import "colors";
+
+.flash {
+  height: 50px;
+  border: 1px border red;
+}
+
+.flash-message, #error_explanation {
+  text-align: center;
+  position: relative;
+  top: 20px;
+  width: 45%;
+  border-radius: 5px;
+  padding: 5px 0;
+  margin: 0 auto;
+  margin-bottom: 30px;
+}
+
+.success {
+  color: white;
+  background-color: $success-green;
+  border: 1px solid grey;
+}
+
+.error, #error_explanation {
+  color: white;
+  background-color: $error-red;
+  border: 1px solid;
+}

@@ -1,0 +1,82 @@
+@import "colors";
+@import "fonts";
+
+#navbar {
+  width: 80%;
+  margin: 0 auto;
+  height: 100px;
+
+  .logo {
+    top: 10px;
+    left: 0;
+    background-color: white;
+
+    .home-logo {
+      width: 130px;
+      padding: 5px;
+    }
+  }
+
+  .menus {
+    right: 0;
+    float: right;
+    height: 100px;
+    position: relative;
+
+    li {
+      display: inline-block;
+      font-size: 16px;
+    }
+
+    .login-container, .menu-container {
+      right: 0;
+      position: absolute;
+      float: right;
+    }
+
+    .login-container {
+      padding: 12px 5px;
+      background-color: $base-green;
+      border-radius: 0 0 10px 10px;
+
+      a {
+        color: white;
+        font-size: 0.8em;
+      }
+
+      .border-right {
+        border-right: 1px white solid;
+      }
+
+      li {
+        padding-left: 25px;
+        padding-right: 25px;
+      }
+    }
+
+    .menu-container {
+      bottom: 10px;
+
+      a {
+        color: $menu-green;
+        font-size: 1.3em;
+        font-family: $arvo-family;
+      }
+
+      a:hover {
+        color: $selected-menu-item;
+      }
+
+      a, a:hover {
+        -moz-transition:color .2s ease;
+        -o-transition:color .2s ease;
+        -webkit-transition:color .2s ease;
+      }
+
+      li {
+        margin-left: 20px;
+        margin-right: 0;
+      }
+    }
+  }
+}

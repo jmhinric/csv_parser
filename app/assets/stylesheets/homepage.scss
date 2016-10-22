@@ -1,0 +1,51 @@
+#homepage {
+  text-align: center;
+
+  form {
+    margin: 0 auto;
+
+    label {
+      font-size: 1.3em;
+      font-weight: bold;
+      display: block;
+      margin-bottom: 15px;
+    }
+
+    input[type=file] {
+      padding-right: 8px;
+    }
+  }
+
+  .file-upload {
+    padding-top: 15px;
+  }
+
+
+  h1 {
+    padding-bottom: 30px;
+  }
+
+  h5 {
+    padding: 5px 0;
+  }
+
+  .form-container {
+    margin: 0 auto;
+  }
+
+  input[type=file] {
+    size: 60;
+  }
+
+  .report-description {
+    text-align: left;
+    list-style: initial;
+    margin: 0 auto;
+    padding-bottom: 40px;
+    width: 685px;
+
+    li {
+      line-height: 1.3em;
+    }
+  }
+}

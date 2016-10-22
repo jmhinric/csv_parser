@@ -1,0 +1,38 @@
+@import "colors";
+@import "mixins";
+
+.button, .button-yellow, .button-long {
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+  padding: 15px 25px;
+  font-size: 1.3em;
+  border-radius: 3px;
+}
+
+.button, .button-yellow {
+  width: 140px;
+}
+
+.button, .button-long {
+  @include submitButton;
+  color: white;
+  background-color: $base-green;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: $base-green-light;
+  @include transition;
+}
+
+.button-yellow {
+  @include submitButton;
+  color: black;
+  background-color: $button-yellow;
+}
+
+.button-yellow:hover {
+  background-color: $button-yellow-light;
+  @include transition;
+}
