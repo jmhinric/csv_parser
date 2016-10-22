@@ -1,0 +1,29 @@
+.devise {
+  .devise-container {
+    width: 80%;
+    margin: 0 auto;
+    padding: 50px 0;
+    h2 {
+      text-align: center;
+    }
+
+    .field {
+      padding-top: 20px;
+      width: 100%;
+      text-align: center;
+    }
+
+    input[type=email], input[type=password], input[type=submit] {
+      margin: 5px auto 0;
+    }
+
+    input[type=submit] {
+      margin: 20px auto;
+    }
+
+    .devise-link {
+      margin-bottom: 5px;
+      text-align: center;
+    }
+  }
+}

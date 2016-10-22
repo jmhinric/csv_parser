@@ -4,7 +4,7 @@
 #navbar {
   width: 80%;
   margin: 0 auto;
-  height: 160px;
+  height: 100px;
 
   .logo {
     top: 10px;
@@ -20,7 +20,7 @@
   .menus {
     right: 0;
     float: right;
-    height: 150px;
+    height: 100px;
     position: relative;
 
     li {
@@ -79,13 +79,4 @@
       }
     }
   }
-}
-
-
-
-/* Hightlight menu item for selected page */
-#homepage #menu-how-it-works a,
-#join #menu-join a,
-#our-box #menu-our-box a {
-  color: $selected-menu-item;
 }

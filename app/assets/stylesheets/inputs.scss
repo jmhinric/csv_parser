@@ -13,7 +13,7 @@ input[type=date]:focus,
 input[type=password]:focus,
 textarea:focus,
 select:focus {
-  padding: 28px 0px 15px 15px;
+  padding: 15px 0px 15px 15px;
 }
 
 
@@ -27,9 +27,7 @@ select {
   display: block;
   width: 50%;
   outline: none;
-  // margin: 20px 1px 20px 0px;
-  border: 0px solid #DDDDDD;
-  border-bottom: 1px solid #DDDDDD;
+  border: 1px solid $dark-gray;
   background: transparent;
 }
 
@@ -47,7 +45,6 @@ input[type=password]:focus,
 textarea:focus,
 select:focus {
   box-shadow: 0 0 3px $base-green;
-  // margin: 20px 1px 20px 0px;
   border: 1px solid $base-green;
 }
 
@@ -61,6 +58,7 @@ input[type=text],
 input[type=email],
 input[type=date],
 input[type=password],
+label,
 select {
   width: 40%;
 }

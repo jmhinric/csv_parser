@@ -15,17 +15,14 @@
             <li class="border-right">
               <%= link_to "My Account", user_path(current_user) %>
             </li>
-            <li class="border-right">
+            <li>
               <%= link_to "Log Out", "/users/sign_out", method: "delete" %>
             </li>
           <% else %>
-            <li class="border-right">
+            <li>
               <%= link_to "Log In","/users/sign_in" %>
             </li>
           <% end %>
-          <li class="">
-            <a href="/contact">Contact</a>
-          </li>
         </ul>
       </div>
     </div>

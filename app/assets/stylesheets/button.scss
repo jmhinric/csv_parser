@@ -1,8 +1,7 @@
 @import "colors";
 @import "mixins";
 
-.button, .button-yellow {
-  width: 140px;
+.button, .button-yellow, .button-long {
   display: block;
   margin: 0 auto;
   text-align: center;
@@ -11,7 +10,11 @@
   border-radius: 3px;
 }
 
-.button {
+.button, .button-yellow {
+  width: 140px;
+}
+
+.button, .button-long {
   @include submitButton;
   color: white;
   background-color: $base-green;

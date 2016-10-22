@@ -5,7 +5,7 @@
   border: 1px border red;
 }
 
-.flash-message {
+.flash-message, #error_explanation {
   text-align: center;
   position: relative;
   top: 20px;
@@ -13,6 +13,7 @@
   border-radius: 5px;
   padding: 5px 0;
   margin: 0 auto;
+  margin-bottom: 30px;
 }
 
 .success {
@@ -21,7 +22,7 @@
   border: 1px solid grey;
 }
 
-.error {
+.error, #error_explanation {
   color: white;
   background-color: $error-red;
   border: 1px solid;
