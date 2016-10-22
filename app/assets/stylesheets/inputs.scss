@@ -1,0 +1,109 @@
+@import "colors";
+@import "mixins";
+
+input[type=text],
+input[type=email],
+input[type=date],
+input[type=password],
+textarea,
+select,
+input[type=text]:focus,
+input[type=email]:focus,
+input[type=date]:focus,
+input[type=password]:focus,
+textarea:focus,
+select:focus {
+  padding: 28px 0px 15px 15px;
+}
+
+
+input[type=text],
+input[type=email],
+input[type=date],
+input[type=password],
+textarea,
+select {
+  @include transition;
+  display: block;
+  width: 50%;
+  outline: none;
+  // margin: 20px 1px 20px 0px;
+  border: 0px solid #DDDDDD;
+  border-bottom: 1px solid #DDDDDD;
+  background: transparent;
+}
+
+input.border-right,
+input.border-right:focus,
+select.border-right,
+select.border-right:focus {
+  border-right: 1px solid #DDDDDD;
+}
+
+input[type=text]:focus,
+input[type=email]:focus,
+input[type=date]:focus,
+input[type=password]:focus,
+textarea:focus,
+select:focus {
+  box-shadow: 0 0 3px $base-green;
+  // margin: 20px 1px 20px 0px;
+  border: 1px solid $base-green;
+}
+
+select, select:focus {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+input[type=text],
+input[type=email],
+input[type=date],
+input[type=password],
+select {
+  width: 40%;
+}
+
+textarea {
+  width: 70%;
+}
+
+input[type=submit] {
+  @include submitButton;
+}
+
+input[type=submit].button-yellow {
+  background: $button-yellow;
+}
+
+input[type=submit]:disabled {
+  color: grey;
+  cursor: default;
+}
+
+input[type=submit]:hover, a.submit {
+  @include transition;
+  background: $base-green-light;
+  color: white;
+}
+
+// placeholder text color
+input:-ms-input-placeholder { color: $light-gray !important; }
+input:-moz-placeholder { color: $light-gray !important; }  /* Firefox 18- */
+input::-moz-placeholder { color: $light-gray !important; }  /* Firefox 19+ */
+input::-webkit-input-placeholder { color: $light-gray !important; }
+
+input[type=radio] {
+  cursor: pointer;
+}
+
+input[type=submit], .button {
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.required-error, input.required-error, input.required-error:focus {
+  box-shadow: 0 0 2px $error-red;
+  border: 1px solid $error-red;
+}

@@ -1,0 +1,33 @@
+<header>
+  <div id="navbar" class="Grid">
+    <div class="Grid-cell u-size3of12">
+      <div class="logo">
+        <a title="Csv Parser" href="/">
+          <%= image_tag "#", class:"home-logo" %>
+        </a>
+      </div>
+    </div>
+    <div class="Grid-cell u-size9of12 menus">
+      <div class="login-container">
+        <ul class="login">
+
+          <% if current_user %>
+            <li class="border-right">
+              <%= link_to "My Account", user_path(current_user) %>
+            </li>
+            <li class="border-right">
+              <%= link_to "Log Out", "/users/sign_out", method: "delete" %>
+            </li>
+          <% else %>
+            <li class="border-right">
+              <%= link_to "Log In","/users/sign_in" %>
+            </li>
+          <% end %>
+          <li class="">
+            <a href="/contact">Contact</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</header>
