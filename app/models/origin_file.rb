@@ -14,13 +14,21 @@ class OriginFile < ApplicationRecord
   belongs_to :task
   has_many :data_transfers
 
-  def data_transfers_by_column
-    data_transfers.group_by(&:origin_col).values.map do |data_transfers|
-      DataTransfersPresenter.transfers(data_transfers)
-    end
+  def transfers_by_column_and_destination_worksheet
+    data_transfers
+      .group_by(&:origin_col).values.map do |data_transfers|
+        data_transfers.group_by(&:destination_worksheet_index).values
+        .map do |data_transfers|
+          DataTransfersPresenter.transfers(data_transfers)
+        end
+      end
   end
 
-  def param_name
-    name.downcase.gsub(' ', '_')
+  def transfers_by_destination_worksheet
+    data_transfers.group_by(&:destination_worksheet_index)
+  end
+
+  def name_as_param
+    name.downcase.gsub(' ', '_').to_sym
   end
 end

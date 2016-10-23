@@ -14,4 +14,8 @@ class Task < ApplicationRecord
   belongs_to :user
   has_many :origin_files
   has_many :destination_files
+
+  def destination_file_path
+    destination_files.first.path
+  end
 end

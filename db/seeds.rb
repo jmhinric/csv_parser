@@ -21,7 +21,7 @@ ActiveRecord::Base.transaction do
   claims = OriginFile.create!(name: "Claims", position: 1, task: task)
 
   result_file = DestinationFile.create!(
-    name: "Cost Analysis Template File",
+    name: "Cost Analysis Template",
     path: "cost_analysis.xlsx",
     task: task
   )

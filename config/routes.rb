@@ -5,7 +5,7 @@ Rails.application.routes.draw do
 
   resources :users, only: :show do
     resources :tasks, only: :show do
-      get 'execute', on: :member
+      post 'execute', on: :member
     end
   end
 end

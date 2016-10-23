@@ -1,36 +1,53 @@
-<main class="centered-container">
-  <h2><%= @task.name %></h2>
-  <h3><%= @task.description %></h3>
-  <br>
+<main id="task-show" class="centered-container">
+  <div class="small-link"><%= link_to 'Back to My Tasks', user_path(current_user) %></div>
 
-  <p>Data transfers:</p>
-  <% @task.origin_files.each do |origin_file| %>
-    <h4><%= origin_file.name %></h4>
-    <% origin_file.data_transfers_by_column.each do |data_transfers| %>
-      <% data_transfers.each do |data_transfer| %>
-        <p>
-          <%= data_transfer[:from] %><strong> to </strong><%= data_transfer[:to] %> of <%= data_transfer[:destination_file] %>, worksheet <%= data_transfer[:destination_worksheet] %>
-        </p>
+  <section class="task-info">
+    <div class="task-header">
+      <h2><%= @task.name %></h2>
+      <p><%= @task.description %></p>
+    </div>
+
+    <div class="Grid form-container">
+      <%= form_tag("#{@task.id}/execute.xlsx", multipart: true) do %>
+        <% @task.origin_files.order(:position).each do |origin_file| %>
+          <div class="Grid task-execute">
+            <div class="Grid-cell u-size1of2">
+              <%= label_tag origin_file.name_as_param, "#{origin_file.name}" %>
+            </div>
+            <div class="Grid-cell u-size1of2">
+              <%= file_field_tag origin_file.name_as_param %>
+            </div>
+          </div>
+        <% end %>
+
+        <%= submit_tag('Generate Report', class: 'submit button') %>
       <% end %>
-      <br>
-    <% end %>
+    </div>
+  </section>
+
+  <h3>Data transfers:</h3>
+
+  <% @task.origin_files.each do |origin_file| %>
+    <div class="file-group">
+      <h3><%= origin_file.name %></h3>
+      <div class="transfer-groups-container">
+        <% origin_file.transfers_by_column_and_destination_worksheet.each do |groups| %>
+          <% groups.each do |data_transfers| %>
+            <div class="transfer-group">
+              <% data_transfers.each do |data_transfer| %>
+                <p>
+                  <%= data_transfer[:from] %> of <%= data_transfer[:origin_file] %>, worksheet <%= data_transfer[:origin_worksheet] %>
+                  <strong class="spaced-arrow"> => </strong>
+                  <%= data_transfer[:to] %> of <%= data_transfer[:destination_file] %>, worksheet <%= data_transfer[:destination_worksheet] %>
+                </p>
+              <% end %>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
     <br>
   <% end %>
-
-  <div class="Grid form-container">
-    <%= form_tag('upload.xlsx', multipart: true) do %>
-      <div class='file-upload'>
-        <%= label_tag 'enrollment', 'Enrollment form' %>
-        <%= file_field_tag 'enrollment' %>
-      </div>
-      <div class='file-upload'>
-        <%= label_tag 'claims', 'Claims form' %>
-        <%= file_field_tag 'claims' %>
-      </div>
-
-      <%= submit_tag('Generate Report', class: 'button') %>
-    <% end %>
-  </div>
 
   <div class="small-link"><%= link_to 'Back to My Tasks', user_path(current_user) %></div>
 </main>

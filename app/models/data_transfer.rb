@@ -19,6 +19,14 @@ class DataTransfer < ApplicationRecord
   belongs_to :origin_file
   belongs_to :destination_file
 
+  def origin_file_name
+    origin_file.name
+  end
+
+  def origin_worksheet_name
+    (origin_worksheet_index + 1).to_s
+  end
+
   def destination_file_name
     destination_file.name
   end

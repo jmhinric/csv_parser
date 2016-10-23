@@ -24,18 +24,11 @@ class DataTransfersPresenter
       {
         from: Cell.new(data_transfer.origin_row, data_transfer.origin_col).to_s,
         to: Cell.new(data_transfer.destination_row, data_transfer.destination_col).to_s,
+        origin_file: data_transfer.origin_file_name,
+        origin_worksheet: data_transfer.origin_worksheet_name,
         destination_file: data_transfer.destination_file_name,
         destination_worksheet: data_transfer.destination_worksheet_name
       }
     end
   end
-
-  # def transfer_blocks
-  #   {
-  #     from_start: ,
-  #     from_end: ,
-  #     to_start: ,
-  #     to_end:
-  #   }
-  # end
 end
