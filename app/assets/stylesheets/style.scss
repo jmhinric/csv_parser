@@ -41,8 +41,21 @@ a:hover {
   display: none;
 }
 
-.edit-link {
+.underlined-link, .small-link {
   text-decoration: underline;
-  font-size: 12px;
   cursor: pointer;
+}
+
+.small-link {
+  font-size: 12px;
+}
+
+.centered-container {
+    width: 80%;
+    margin: 0 auto;
+    padding: 50px 0;
+
+    .centered {
+      text-align: center;
+    }
 }

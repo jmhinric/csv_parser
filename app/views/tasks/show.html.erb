@@ -1,0 +1,36 @@
+<main class="centered-container">
+  <h2><%= @task.name %></h2>
+  <h3><%= @task.description %></h3>
+  <br>
+
+  <p>Data transfers:</p>
+  <% @task.origin_files.each do |origin_file| %>
+    <h4><%= origin_file.name %></h4>
+    <% origin_file.data_transfers_by_column.each do |data_transfers| %>
+      <% data_transfers.each do |data_transfer| %>
+        <p>
+          <%= data_transfer[:from] %><strong> to </strong><%= data_transfer[:to] %> of <%= data_transfer[:destination_file] %>, worksheet <%= data_transfer[:destination_worksheet] %>
+        </p>
+      <% end %>
+      <br>
+    <% end %>
+    <br>
+  <% end %>
+
+  <div class="Grid form-container">
+    <%= form_tag('upload.xlsx', multipart: true) do %>
+      <div class='file-upload'>
+        <%= label_tag 'enrollment', 'Enrollment form' %>
+        <%= file_field_tag 'enrollment' %>
+      </div>
+      <div class='file-upload'>
+        <%= label_tag 'claims', 'Claims form' %>
+        <%= file_field_tag 'claims' %>
+      </div>
+
+      <%= submit_tag('Generate Report', class: 'button') %>
+    <% end %>
+  </div>
+
+  <div class="small-link"><%= link_to 'Back to My Tasks', user_path(current_user) %></div>
+</main>
