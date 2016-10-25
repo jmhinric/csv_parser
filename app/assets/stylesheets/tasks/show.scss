@@ -15,6 +15,15 @@
     form {
       margin: 0 auto;
 
+      .file-input-header {
+        font-size: 0.9em;
+        padding-bottom: 7px;
+      }
+
+      .input-group {
+        padding-bottom: 15px;
+      }
+
       .task-execute {
         text-align: right;
         padding-bottom: 15px;

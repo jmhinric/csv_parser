@@ -1,10 +1,14 @@
 @import "colors";
 @import "fonts";
 
+header {
+  background-color: $dark-green;
+  height: 42px;
+}
+
 #navbar {
   width: 80%;
   margin: 0 auto;
-  height: 100px;
 
   .logo {
     top: 10px;
@@ -20,7 +24,6 @@
   .menus {
     right: 0;
     float: right;
-    height: 100px;
     position: relative;
 
     li {
@@ -36,7 +39,7 @@
 
     .login-container {
       padding: 12px 5px;
-      background-color: $base-green;
+      background-color: $dark-green;
       border-radius: 0 0 10px 10px;
 
       a {

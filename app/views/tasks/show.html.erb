@@ -9,16 +9,36 @@
 
     <div class="Grid form-container">
       <%= form_tag("#{@task.id}/execute.xlsx", multipart: true) do %>
-        <% @task.origin_files.order(:position).each do |origin_file| %>
-          <div class="Grid task-execute">
-            <div class="Grid-cell u-size1of2">
-              <%= label_tag origin_file.name_as_param, "#{origin_file.name}" %>
+
+        <!-- OriginFile inputs -->
+        <div class="file-input-header">Source files:</div>
+        <div class="input-group">
+          <% @task.origin_files.order(:position).each do |file| %>
+            <div class="Grid task-execute">
+              <div class="Grid-cell u-size1of2">
+                <%= label_tag file.name_as_param, "#{file.name}" %>
+              </div>
+              <div class="Grid-cell u-size1of2">
+                <%= file_field_tag file.name_as_param %>
+              </div>
             </div>
-            <div class="Grid-cell u-size1of2">
-              <%= file_field_tag origin_file.name_as_param %>
+          <% end %>
+        </div>
+
+        <!-- DestinationFile inputs -->
+        <div class="file-input-header">Destination files:</div>
+        <div class="input-group">
+          <% @task.destination_files.order(:position).each do |file| %>
+            <div class="Grid task-execute">
+              <div class="Grid-cell u-size1of2">
+                <%= label_tag file.name_as_param, "#{file.name}" %>
+              </div>
+              <div class="Grid-cell u-size1of2">
+                <%= file_field_tag file.name_as_param %>
+              </div>
             </div>
-          </div>
-        <% end %>
+          <% end %>
+        </div>
 
         <%= submit_tag('Generate Report', class: 'submit button') %>
       <% end %>

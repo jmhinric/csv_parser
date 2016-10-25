@@ -44,7 +44,7 @@ class CreateTasks < ActiveRecord::Migration[5.0]
     add_foreign_key :data_transfers, :destination_files
     add_foreign_key :destination_files, :tasks
 
-    add_index(:origin_files, :position, unique: true)
-    add_index(:destination_files, :position, unique: true)
+    add_index(:origin_files, [:position, :task_id], unique: true)
+    add_index(:destination_files, [:position, :task_id], unique: true)
   end
 end

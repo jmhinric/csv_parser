@@ -1,5 +1,11 @@
 @import "colors";
 
+.flash-message-wrapper {
+  position: absolute;
+  top: 50px;
+  width: 100%;
+}
+
 .flash {
   height: 50px;
   border: 1px border red;

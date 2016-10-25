@@ -14,4 +14,8 @@
 class DestinationFile < ApplicationRecord
   belongs_to :task
   has_many :data_transfers
+
+  def name_as_param
+    "dest_#{name.downcase.gsub(' ', '_')}".to_sym
+  end
 end

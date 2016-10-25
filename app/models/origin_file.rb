@@ -29,6 +29,6 @@ class OriginFile < ApplicationRecord
   end
 
   def name_as_param
-    name.downcase.gsub(' ', '_').to_sym
+    "origin_#{name.downcase.gsub(' ', '_')}".to_sym
   end
 end

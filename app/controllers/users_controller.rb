@@ -21,6 +21,6 @@ class UsersController < ApplicationController
   before_action :authenticate_user!
 
   def show
-    @tasks = current_user.tasks
+    @tasks = current_user.tasks.sort_by(&:created_at)
   end
 end

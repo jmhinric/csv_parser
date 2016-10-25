@@ -36,7 +36,7 @@ ActiveRecord::Schema.define(version: 20161022224142) do
     t.uuid     "task_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["position"], name: "index_destination_files_on_position", unique: true, using: :btree
+    t.index ["position", "task_id"], name: "index_destination_files_on_position_and_task_id", unique: true, using: :btree
   end
 
   create_table "origin_files", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
@@ -45,7 +45,7 @@ ActiveRecord::Schema.define(version: 20161022224142) do
     t.uuid     "task_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["position"], name: "index_origin_files_on_position", unique: true, using: :btree
+    t.index ["position", "task_id"], name: "index_origin_files_on_position_and_task_id", unique: true, using: :btree
   end
 
   create_table "tasks", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
