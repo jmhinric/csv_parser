@@ -1,78 +1,90 @@
 @import "colors";
 
 #task-show {
-  width: 70%;
+  width: 100%;
+  background: url("../grid-paper.jpg") repeat;
 
-  .task-info {
-    text-align: center;
-    padding-bottom: 60px;
+  .wrapper-seventy {
+    width: 70%;
+    margin: 0 auto;
 
-    .task-header {
-      padding-top: 30px;
-      padding-bottom: 30px;
+    .small-link {
+      margin-bottom: 20px;
     }
 
-    form {
-      margin: 0 auto;
+    .task-info {
+      text-align: center;
+      padding-bottom: 10px;
+      margin-bottom: 50px;
+      border: 1px solid $dark-gray;
 
-      .file-input-header {
-        font-size: 0.9em;
-        padding-bottom: 7px;
+      .task-header {
+        padding-top: 30px;
+        padding-bottom: 30px;
       }
 
-      .input-group {
-        padding-bottom: 15px;
-      }
+      form {
+        margin: 0 auto;
 
-      .task-execute {
-        text-align: right;
-        padding-bottom: 15px;
-
-        input[type=file] {
-          margin: 0 auto;
-          size: 60;
+        .file-input-header {
+          font-size: 0.9em;
+          padding-bottom: 7px;
         }
 
-        input[type=submit] {
-          margin: 20px 0;
+        .input-group {
+          padding-bottom: 15px;
         }
-      }
 
-      label {
-        padding-right: 15px;
-        font-weight: bold;
+        .task-execute {
+          text-align: right;
+          padding-bottom: 15px;
+
+          input[type=file] {
+            margin: 0 auto;
+            size: 60;
+          }
+
+          input[type=submit] {
+            margin: 20px 0;
+          }
+        }
+
+        label {
+          padding-right: 15px;
+          font-weight: bold;
+        }
       }
     }
-  }
 
-  h2 {
-    padding-bottom: 10px;
-  }
+    h2 {
+      padding-bottom: 10px;
+    }
 
-  h3 {
-    padding-bottom: 25px;
-  }
+    h3 {
+      padding-bottom: 25px;
+    }
 
-  h2, h3 {
-    text-align: center;
-  }
+    h2, h3 {
+      text-align: center;
+    }
 
-  .file-group {
-    text-align: center;
-    padding: 40px 30px 10px;
-    margin-bottom: 40px;
-    background-color: $lightest-gray;
-    border: 1px solid $dark-gray;
-    border-radius: 2px;
-  }
+    .file-group {
+      text-align: center;
+      padding: 30px 30px 0;
+      margin-bottom: 40px;
+      background-color: $lightest-gray;
+      border: 1px solid $dark-gray;
+      border-radius: 2px;
+    }
 
-  .transfer-groups-container {
-    .transfer-group {
-      padding-left: 10px;
-      margin-bottom: 25px;
+    .transfer-groups-container {
+      .transfer-group {
+        padding-left: 10px;
+        margin-bottom: 30px;
 
-      .spaced-arrow {
-        padding: 0 10px;
+        .spaced-arrow {
+          padding: 0 10px;
+        }
       }
     }
   }

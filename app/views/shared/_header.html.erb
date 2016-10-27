@@ -2,7 +2,8 @@
   <div id="navbar" class="Grid">
     <div class="Grid-cell u-size3of12">
       <div class="logo">
-        <a title="Csv Parser" href="/">
+        <a title="Evergreen Data Services" href="/">
+          <h2>Evergreen</h2><span>Data Services</span>
           <% image_tag "", class:"home-logo" %>
         </a>
       </div>
@@ -13,7 +14,7 @@
 
           <% if current_user %>
             <li class="border-right">
-              <%= link_to "My Account", user_path(current_user) %>
+              <%= link_to current_user.email, user_path(current_user) %>
             </li>
             <li>
               <%= link_to "Log Out", "/users/sign_out", method: "delete" %>

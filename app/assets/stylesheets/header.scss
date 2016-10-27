@@ -3,7 +3,7 @@
 
 header {
   background-color: $dark-green;
-  height: 42px;
+  height: 84px;
 }
 
 #navbar {
@@ -11,9 +11,21 @@ header {
   margin: 0 auto;
 
   .logo {
-    top: 10px;
     left: 0;
-    background-color: white;
+    background-color: $dark-green;
+
+    a {
+      font-family: $serif-font;
+      letter-spacing: 1px;
+      color: white;
+      position: absolute;
+      top: 14px;
+
+      span {
+        font-size: 0.9em;
+        padding-left: 8px;
+      }
+    }
 
     .home-logo {
       width: 130px;
@@ -38,9 +50,8 @@ header {
     }
 
     .login-container {
-      padding: 12px 5px;
       background-color: $dark-green;
-      border-radius: 0 0 10px 10px;
+      top: 28px;
 
       a {
         color: white;
