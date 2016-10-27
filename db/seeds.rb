@@ -250,4 +250,3 @@ end
     destination_row: 5,
     destination_col: 4
   )
-end
