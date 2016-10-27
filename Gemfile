@@ -26,6 +26,12 @@ gem 'jbuilder', '~> 2.5'
 gem 'bcrypt', '~> 3.1.7'
 gem 'devise'
 
+# Annotate schema into models
+# annotate --exclude tests,fixtures,factories,serializers
+gem 'annotate', github: 'ctran/annotate_models'
+
+gem 'rubyXL'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

@@ -12,12 +12,14 @@
     <div class="page-wrap">
       <%= render "shared/header" %>
 
-      <% if notice %>
-        <p class="notice flash-message success"><%= notice %></p>
-      <% end %>
-      <% if alert %>
-        <p class="alert flash-message error"><%= alert %></p>
-      <% end %>
+      <div class="flash-message-wrapper">
+        <% if notice %>
+          <p class="notice flash-message success"><%= notice %></p>
+        <% end %>
+        <% if alert %>
+          <p class="alert flash-message error"><%= alert %></p>
+        <% end %>
+      </div>
       <%= yield %>
     </div>
 
@@ -26,3 +28,9 @@
     </footer>
   </body>
 </html>
+
+<script>
+  $(function(){
+    $('.flash-message').delay(6000).fadeOut(400);
+  });
+</script>

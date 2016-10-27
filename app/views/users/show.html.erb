@@ -1,1 +1,16 @@
-User Show!
+<main class="centered-container">
+  <section class="page-top-section">
+    <h2><%= current_user.email %></h2>
+  </section>
+
+  <h4>My Tasks:</h4>
+  <br>
+    <% @tasks.each do |task| %>
+      <div class="user-task-group">
+        <h3 class="underlined-link">
+          <%= link_to task.name, user_task_path(current_user, task) %>
+        </h3>
+        <div><%= task.description %></div>
+      </div>
+    <% end %>
+</main>
