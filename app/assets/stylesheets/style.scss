@@ -3,7 +3,7 @@
 
 html, body {
   height: 100%;
-  font-family: $muli-family;
+  font-family: $sans-serif-font;
 }
 
 main {
@@ -30,6 +30,7 @@ main {
 
 .page-top-section {
   padding: 100px 0 30px;
+  padding: 50px 0 30px;
 }
 
 a {
@@ -52,14 +53,15 @@ a:hover {
 
 .small-link {
   font-size: 12px;
+  text-align: left;
 }
 
 .centered-container {
-    width: 80%;
-    margin: 0 auto;
-    padding: 50px 0;
+  width: 80%;
+  margin: 0 auto;
+  padding: 50px 0;
 
-    .centered {
-      text-align: center;
-    }
+  .centered {
+    text-align: center;
+  }
 }

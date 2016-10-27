@@ -1,0 +1,44 @@
+@import "colors";
+
+/*http://css-tricks.com/snippets/css/sticky-footer/*/
+
+.page-wrap {
+  min-height: 100%;
+  /*This margin height is equal to the footer height*/
+  margin-bottom: -100px;
+}
+
+.page-wrap:after {
+  content: "";
+  display: block;
+  background-color: $header-footer-blue;
+  // height: 100px;
+}
+
+.site-footer, .page-wrap:after {
+  /* .push must be the same height as footer */
+  height: 100px;
+}
+
+.site-footer {
+  background-color: $header-footer-blue;
+  width: 100%;
+  text-align: center;
+  // height: 100px;
+  // padding-top: 125px;
+
+  li {
+    display: inline-block;
+    padding: 10px 25px;
+  }
+
+  span {
+    display: block;
+    margin: 0 auto;
+    padding-top: 30px;
+    position: relative;
+    bottom: -6px;
+    font-weight: 200;
+    width: 90%;
+  }
+}

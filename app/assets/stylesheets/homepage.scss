@@ -1,51 +1,100 @@
+@import 'fonts';
+@import 'colors';
+
 #homepage {
+
   text-align: center;
-
-  form {
-    margin: 0 auto;
-
-    label {
-      font-size: 1.3em;
-      font-weight: bold;
-      display: block;
-      margin-bottom: 15px;
-    }
-
-    input[type=file] {
-      padding-right: 8px;
-    }
-  }
+  color: black;
 
   h1 {
     padding: 30px 0 30px;
   }
 
-  h5 {
-    padding: 5px 0;
-  }
+  .page-top-section {
+    background: url("nyc-green.jpg") no-repeat center;
+    background-size: cover;
+    height: 700px;
+    position: relative;
 
-  .task-execute {
-    padding-bottom: 8px;
-
-    input[type=file] {
-      size: 60;
+    h1 {
+      margin: 0 auto;
+      font-family: $serif-font;
+      letter-spacing: 1px;
+      font-size: 2.5em;
     }
   }
 
-  .form-container {
-    margin: 0 auto;
+  section {
+    padding: 50px 0;
   }
 
+  .info-section {
+    background-color: $link-green;
+    background-color: $lighter-gray;
 
-  .report-description {
-    text-align: left;
-    list-style: initial;
-    margin: 0 auto;
-    padding-bottom: 40px;
-    width: 685px;
+    h1, .description {
+      padding-bottom: 50px;
+    }
+  }
 
-    li {
-      line-height: 1.3em;
+  .what-we-do {
+    background-color: $comp-yellow;
+
+    .benefits {
+      margin: 0 auto;
+      width: 40%;
+      text-align: left;
+
+      span {
+        margin-bottom: 20px;
+      }
+
+      img {
+        padding-right: 15px;
+        vertical-align: bottom;
+      }
+    }
+
+    h3 {
+      display: inline;
+    }
+  }
+
+  .how-it-works {
+    background-color: $lightest-gray;
+    padding: 30px 0;
+
+    #simple-steps {
+      width: 80%;
+      margin: 0 auto;
+      font-size: 1.2em;
+
+      img {
+        margin-top: 25px;
+        margin-bottom: 25px;
+        width: 100px;
+        height: 100px;
+      }
+
+      h2 {
+        width: 100%;
+        color: black;
+
+      }
+    }
+
+    .simple-step {
+      display: inline-block;
+      text-align: center;
+      width: 100%;
+      padding-bottom: 40px;
+      margin-bottom: 50px;
+
+      h3 {
+        margin: 0 auto;
+        width: 80%;
+        font-weight: 100;
+      }
     }
   }
 }
