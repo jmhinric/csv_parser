@@ -11,6 +11,8 @@
 #
 
 class TasksController < ApplicationController
+  include Exceptions
+
   before_action :authenticate_user!
   skip_before_filter :verify_authenticity_token
 
@@ -21,26 +23,34 @@ class TasksController < ApplicationController
   end
 
   def execute
-    unpack_params
+    begin
+      unpack_params
 
-    task.origin_files.each do |origin_file|
-      origin_file_upload = RubyXL::Parser.parse(send("#{origin_file.name_as_param}_file").open)
+      task.origin_files.each do |origin_file|
+        origin_file_upload = RubyXL::Parser.parse(send("#{origin_file.name_as_param}_file").open)
 
-      DataTransfersService.execute(
-        origin_file: origin_file,
-        origin_file_upload: origin_file_upload,
-        result_file: result_file_upload
-      )
-    end
+        DataTransfersService.execute(
+          origin_file: origin_file,
+          origin_file_upload: origin_file_upload,
+          result_file: result_file_upload
+        )
+      end
 
-    respond_to do |format|
-      format.xlsx {
-        send_data result_file_upload.stream.read, {
-          type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-          disposition:'attachment',
-          filename: task.destination_files[0].path
+      respond_to do |format|
+        format.xlsx {
+          send_data result_file_upload.stream.read, {
+            type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+            disposition:'attachment',
+            filename: task.destination_files[0].path
+          }
         }
-      }
+      end
+    rescue Exceptions::MissingParamError => e
+      flash[:alert] = e.message
+      redirect_to user_task_path(current_user, task)
+    rescue => e
+      flash[:alert] = "Oops! Something went wrong.  Please contact support."
+      redirect_to user_task_path(current_user, task)
     end
   end
 
@@ -70,6 +80,12 @@ class TasksController < ApplicationController
 
   def unpack_params
     (task.origin_files + task.destination_files).each do |file|
+      unless params[file.name_as_param]
+        num_files = (task.origin_files + task.destination_files).count
+        raise Exceptions::MissingParamError, "\"#{file.name}\" file was missing. " +
+          "All #{num_files} files are required."
+      end
+
       file_params_method = "#{file.name_as_param}_params".to_sym
       file_method = "#{file.name_as_param}_file".to_sym
 
