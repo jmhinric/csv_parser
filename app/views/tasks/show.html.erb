@@ -23,7 +23,7 @@
                   <%= label_tag file.name_as_param, "#{file.name}" %>
                 </div>
                 <div class="Grid-cell u-size1of2">
-                  <%= file_field_tag file.name_as_param %>
+                  <%= file_field_tag file.name_as_param, { required: true } %>
                 </div>
               </div>
             <% end %>

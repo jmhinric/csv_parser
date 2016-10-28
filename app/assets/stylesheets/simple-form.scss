@@ -1,11 +1,12 @@
-.devise {
+.simple-form-container {
 
-  .devise-container {
+  .simple-form {
     height: 770px;
     width: 100%;
     margin: 0 auto;
     padding: 100px 0 50px;
-    h2 {
+
+    h2, h3 {
       text-align: center;
     }
 
@@ -15,8 +16,17 @@
       text-align: center;
     }
 
-    input[type=email], input[type=password], input[type=submit] {
+    .field,
+    input[type=text],
+    input[type=email],
+    input[type=password],
+    input[type=submit],
+    textarea {
       margin: 5px auto 0;
+    }
+
+    textarea {
+      width: 40%;
     }
 
     input[type=submit] {
