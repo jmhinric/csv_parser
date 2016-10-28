@@ -1,8 +1,10 @@
+//= depend_on_asset "grid-paper.jpg"
+
 @import "colors";
 
 #task-show {
   width: 100%;
-  background: url("../grid-paper.jpg") repeat;
+  background: url('<%= asset_path("grid-paper.jpg") %> ') repeat;
 
   .wrapper-seventy {
     width: 70%;

@@ -1,6 +1,6 @@
 <main class="devise">
   <section class="devise-container">
-    <%= render "devise/shared/devise_flash_messages" %>
+    <%= render partial: "/shared/flash_messages" %>
     <h2>Log in</h2>
 
     <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
