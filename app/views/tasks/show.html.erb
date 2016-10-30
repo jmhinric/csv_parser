@@ -60,9 +60,9 @@
               <div class="transfer-group">
                 <% data_transfers.each do |data_transfer| %>
                   <p>
-                    <%= data_transfer[:from] %> of <%= data_transfer[:origin_file] %>, worksheet <%= data_transfer[:origin_worksheet] %>
-                    <strong class="spaced-arrow"> => </strong>
-                    <%= data_transfer[:to] %> of <%= data_transfer[:destination_file] %>, worksheet <%= data_transfer[:destination_worksheet] %>
+                    <%= data_transfer[:from] %> of <strong><%= data_transfer[:origin_file] %></strong>, worksheet <%= data_transfer[:origin_worksheet] %>
+                    <span class="spaced-arrow"> => </span>
+                    <%= data_transfer[:to] %> of <strong><%= data_transfer[:destination_file] %></strong>, worksheet <%= data_transfer[:destination_worksheet] %>
                   </p>
                 <% end %>
               </div>

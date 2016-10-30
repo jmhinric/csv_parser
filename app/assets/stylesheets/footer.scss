@@ -11,7 +11,7 @@
 .page-wrap:after {
   content: "";
   display: block;
-  background-color: $header-footer-blue;
+  background-color: $dark-green;
   // height: 100px;
 }
 
@@ -21,7 +21,8 @@
 }
 
 .site-footer {
-  background-color: $header-footer-blue;
+  background-color: $dark-green;
+  color: white;
   width: 100%;
   text-align: center;
   // height: 100px;

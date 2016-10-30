@@ -2,12 +2,11 @@
 @import 'colors';
 
 #homepage {
-
   text-align: center;
   color: black;
 
   h1 {
-    padding: 30px 0 30px;
+    padding-bottom: 50px;
   }
 
   .page-top-section {
@@ -25,24 +24,25 @@
   }
 
   section {
-    padding: 50px 0;
+    padding: 150px 0;
   }
 
   .info-section {
     background-color: $link-green;
-    background-color: $lighter-gray;
+    background-color: $lightest-gray;
 
-    h1, .description {
-      padding-bottom: 50px;
+    .description {
+      padding-bottom: 70px;
     }
   }
 
   .what-we-do {
     background-color: $comp-yellow;
+    background-color: $comp-brown;
 
     .benefits {
       margin: 0 auto;
-      width: 40%;
+      width: 34%;
       text-align: left;
 
       span {
@@ -62,7 +62,6 @@
 
   .how-it-works {
     background-color: $lightest-gray;
-    padding: 30px 0;
 
     #simple-steps {
       width: 80%;
@@ -87,14 +86,20 @@
       display: inline-block;
       text-align: center;
       width: 100%;
-      padding-bottom: 40px;
-      margin-bottom: 50px;
 
       h3 {
         margin: 0 auto;
         width: 80%;
         font-weight: 100;
       }
+    }
+  }
+
+  .contact-us {
+    background-color: $comp-brown;
+
+    a {
+      text-decoration: underline;
     }
   }
 }

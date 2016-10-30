@@ -1,0 +1,27 @@
+//= depend_on_asset "grid-paper.jpg"
+
+#user-show {
+  width: 100%;
+  background: url('<%= asset_path("grid-paper.jpg") %> ') repeat;
+
+  .page-top-section {
+    text-align: left;
+  }
+
+  .wrapper-seventy {
+    width: 70%;
+    margin: 0 auto;
+
+    .tasks-wrapper {
+      height: 550px;
+
+      a {
+        text-decoration: underline;
+      }
+
+      .user-task-group {
+        padding-bottom: 20px;
+      }
+    }
+  }
+}
