@@ -15,7 +15,7 @@
         <%= form_tag("#{@task.id}/execute.xlsx", multipart: true) do %>
 
           <!-- OriginFile inputs -->
-          <div class="file-input-header">Source files:</div>
+          <h3 class="file-input-header">Source files:</h3>
           <div class="input-group">
             <% @task.origin_files.order(:position).each do |file| %>
               <div class="Grid task-execute">
@@ -30,7 +30,7 @@
           </div>
 
           <!-- DestinationFile inputs -->
-          <div class="file-input-header">Destination files:</div>
+          <h3 class="file-input-header">Destination files:</h3>
           <div class="input-group">
             <% @task.destination_files.order(:position).each do |file| %>
               <div class="Grid task-execute">
@@ -49,7 +49,7 @@
       </div>
     </section>
 
-    <h3>Data transfers:</h3>
+    <h2>Data transfers:</h2>
 
     <% @task.origin_files.each do |origin_file| %>
       <div class="file-group">
@@ -58,13 +58,30 @@
           <% origin_file.transfers_by_column_and_destination_worksheet.each do |groups| %>
             <% groups.each do |data_transfers| %>
               <div class="transfer-group">
-                <% data_transfers.each do |data_transfer| %>
-                  <p>
-                    <%= data_transfer[:from] %> of <strong><%= data_transfer[:origin_file] %></strong>, worksheet <%= data_transfer[:origin_worksheet] %>
-                    <span class="spaced-arrow"> => </span>
-                    <%= data_transfer[:to] %> of <strong><%= data_transfer[:destination_file] %></strong>, worksheet <%= data_transfer[:destination_worksheet] %>
-                  </p>
-                <% end %>
+                <table border="1">
+                  <tbody>
+                    <tr>
+                      <th>Origin file</th>
+                      <th>Worksheet</th>
+                      <th>Origin Cell</th>
+                      <th></th>
+                      <th>Destination file</th>
+                      <th>Worksheet</th>
+                      <th>Destination Cell</th>
+                    </tr>
+                    <% data_transfers.each_with_index do |data_transfer, index| %>
+                      <tr class=<%= "table-row-#{index % 2 == 0 ? 'even' : 'odd'}" %>>
+                        <td><%= data_transfer[:origin_file] %></td>
+                        <td><%= data_transfer[:origin_worksheet] %></td>
+                        <td><%= data_transfer[:from] %></td>
+                        <td></td>
+                        <td><%= data_transfer[:destination_file] %></td>
+                        <td><%= data_transfer[:destination_worksheet] %></td>
+                        <td><%= data_transfer[:to] %></td>
+                      </tr>
+                    <% end %>
+                  </tbody>
+                </table>
               </div>
             <% end %>
           <% end %>

@@ -16,9 +16,9 @@
 
     .task-info {
       text-align: center;
-      padding-bottom: 10px;
-      margin-bottom: 50px;
-      border: 1px solid $dark-gray;
+      margin-bottom: 100px;
+      padding-bottom: 30px;
+      border-bottom: 1px solid $dark-gray;
 
       .task-header {
         padding-top: 30px;
@@ -29,8 +29,8 @@
         margin: 0 auto;
 
         .file-input-header {
-          font-size: 0.9em;
           padding-bottom: 7px;
+          text-decoration: underline;
         }
 
         .input-group {
@@ -44,10 +44,6 @@
           input[type=file] {
             margin: 0 auto;
             size: 60;
-          }
-
-          input[type=submit] {
-            margin: 20px 0;
           }
         }
 
@@ -74,8 +70,6 @@
       text-align: center;
       padding: 30px 30px 0;
       margin-bottom: 40px;
-      background-color: $lightest-gray;
-      border: 1px solid $dark-gray;
       border-radius: 2px;
     }
 
@@ -87,6 +81,23 @@
         .spaced-arrow {
           font-weight: bolder;
           padding: 0 10px;
+        }
+      }
+
+      table {
+        margin: 0 auto;
+
+        th {
+          font-size: 1.1em;
+          background-color: $light-gray;
+        }
+
+        th, td {
+          padding: 5px 8px;
+        }
+
+        .table-row-odd {
+          background-color: $lighter-gray;
         }
       }
     }
