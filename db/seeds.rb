@@ -146,7 +146,7 @@ ActiveRecord::Base.transaction do
   # Example 2
   task2 = Task.create!(
     name: "Population Expenses",
-    description: "Example 2: Simple case of copying from two source files to one destination file",
+    description: "Example 2: Simple case of copying from two origin files to one destination file",
     user: user
   )
 
