@@ -43,7 +43,7 @@ header {
       font-size: 16px;
     }
 
-    .login-container, .menu-container {
+    .login-container {
       right: 0;
       position: absolute;
       float: right;
@@ -65,31 +65,6 @@ header {
       li {
         padding-left: 25px;
         padding-right: 25px;
-      }
-    }
-
-    .menu-container {
-      bottom: 10px;
-
-      a {
-        color: $menu-green;
-        font-size: 1.3em;
-        font-family: $arvo-family;
-      }
-
-      a:hover {
-        color: $selected-menu-item;
-      }
-
-      a, a:hover {
-        -moz-transition:color .2s ease;
-        -o-transition:color .2s ease;
-        -webkit-transition:color .2s ease;
-      }
-
-      li {
-        margin-left: 20px;
-        margin-right: 0;
       }
     }
   }

@@ -1,16 +1,26 @@
-<main class="user-show centered-container">
-  <section class="page-top-section">
-    <h2>My Tasks:</h2>
-  </section>
+<main id="user-show" class="centered-container">
+  <div class="wrapper-seventy">
+    <section class="page-top-section">
+      <h2>My Tasks:</h2>
+    </section>
 
-  <div class="tasks-wrapper">
-    <% @tasks.each do |task| %>
-      <div class="user-task-group">
-        <h3 class="underlined-link">
-          <%= link_to task.name, user_task_path(current_user, task) %>
+    <section class="tasks-wrapper">
+      <% @tasks.each do |task| %>
+        <div class="user-task-group">
+          <h3 class="underlined-link">
+            <%= link_to task.name, user_task_path(current_user, task) %>
+          </h3>
+          <div><%= task.description %></div>
+        </div>
+      <% end %>
+
+      <% if @tasks.count == 0 %>
+        <h3>
+          <em>
+            You don't have any tasks yet.  Please <%= link_to "contact us", contact_path %> for inquiries.
+          </em>
         </h3>
-        <div><%= task.description %></div>
-      </div>
-    <% end %>
+      <% end %>
+    </section>
   </div>
 </main>
