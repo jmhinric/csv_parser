@@ -9,6 +9,9 @@
       <div class="task-header">
         <h2><%= @task.name %></h2>
         <p><%= @task.description %></p>
+        <div class="small-link">
+          <%= link_to 'Show data transfer details', data_transfers_path(@task.id) %>
+        </div>
       </div>
 
       <div class="Grid form-container">
@@ -48,48 +51,5 @@
         <% end %>
       </div>
     </section>
-
-    <h2>Data transfers:</h2>
-
-    <% @task.origin_files.each do |origin_file| %>
-      <div class="file-group">
-        <h3><%= origin_file.name %></h3>
-        <div class="transfer-groups-container">
-          <% origin_file.transfers_by_column_and_destination_worksheet.each do |groups| %>
-            <% groups.each do |data_transfers| %>
-              <div class="transfer-group">
-                <table border="1">
-                  <tbody>
-                    <tr>
-                      <th>Origin file</th>
-                      <th>Worksheet</th>
-                      <th>Origin Cell</th>
-                      <th></th>
-                      <th>Destination file</th>
-                      <th>Worksheet</th>
-                      <th>Destination Cell</th>
-                    </tr>
-                    <% data_transfers.each_with_index do |data_transfer, index| %>
-                      <tr class=<%= "table-row-#{index % 2 == 0 ? 'even' : 'odd'}" %>>
-                        <td><%= data_transfer[:origin_file] %></td>
-                        <td><%= data_transfer[:origin_worksheet] %></td>
-                        <td><%= data_transfer[:from] %></td>
-                        <td></td>
-                        <td><%= data_transfer[:destination_file] %></td>
-                        <td><%= data_transfer[:destination_worksheet] %></td>
-                        <td><%= data_transfer[:to] %></td>
-                      </tr>
-                    <% end %>
-                  </tbody>
-                </table>
-              </div>
-            <% end %>
-          <% end %>
-        </div>
-      </div>
-      <br>
-    <% end %>
-
-    <div class="small-link"><%= link_to 'Back to My Report Tasks', user_path(current_user) %></div>
   </div>
 </main>

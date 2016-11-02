@@ -1,0 +1,62 @@
+<main id="task-show" class="centered-container">
+  <div class="wrapper-seventy">
+    <div class="small-link">
+      <%= link_to "Back to #{@task.name} Task", user_task_path(current_user, @task) %>
+    </div>
+
+    <section class="task-info">
+      <div class="task-header">
+        <h2><%= @task.name %></h2>
+        <p><%= @task.description %></p>
+      </div>
+    </section>
+
+    <section class="data-transfers-info">
+      <h2>Data transfers:</h2>
+      <p>This report is generated through a series of automated spreadsheet copy-paste actions.  A particular cell is copied from a provided origin file to a particular cell of a provided destination file.  The following is a list of each of those data transfers that are executed to produce the final report.</p>
+
+      <% @task.origin_files.each do |origin_file| %>
+        <div class="file-group">
+          <h3><%= origin_file.name %></h3>
+          <div class="transfer-groups-container">
+            <% origin_file.transfers_by_column_and_destination_worksheet.each do |groups| %>
+              <% groups.each do |data_transfers| %>
+                <div class="transfer-group">
+                  <table border="1">
+                    <tbody>
+                      <tr>
+                        <th>Origin file</th>
+                        <th>Worksheet</th>
+                        <th>Origin Cell</th>
+                        <th></th>
+                        <th>Destination file</th>
+                        <th>Worksheet</th>
+                        <th>Destination Cell</th>
+                      </tr>
+                      <% data_transfers.each_with_index do |data_transfer, index| %>
+                        <tr class=<%= "table-row-#{index % 2 == 0 ? 'even' : 'odd'}" %>>
+                          <td><%= data_transfer[:origin_file] %></td>
+                          <td><%= data_transfer[:origin_worksheet] %></td>
+                          <td><%= data_transfer[:from] %></td>
+                          <td></td>
+                          <td><%= data_transfer[:destination_file] %></td>
+                          <td><%= data_transfer[:destination_worksheet] %></td>
+                          <td><%= data_transfer[:to] %></td>
+                        </tr>
+                      <% end %>
+                    </tbody>
+                  </table>
+                </div>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+        <br>
+      <% end %>
+    </section>
+
+    <div class="small-link">
+      <%= link_to "Back to #{@task.name} Task", data_transfers_path(@task) %>
+    </div>
+  </div>
+</main>
