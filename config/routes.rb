@@ -9,6 +9,10 @@ Rails.application.routes.draw do
     end
   end
 
+  scope 'tasks/:id' do
+    resources :data_transfers, only: :index
+  end
+
   get 'contact' => 'contact_comments#new'
   post 'contact' => 'contact_comments#create'
 end
