@@ -13,10 +13,30 @@
 class TasksController < ApplicationController
   include Exceptions
 
+  # TODO look more into user authentication/authorization
   before_action :authenticate_user!
   skip_before_action :verify_authenticity_token
 
   TEMPLATE_BASE_PATH = 'lib/assets/templates/'
+
+  def new
+    render(component: 'TaskNew', props: {
+      task: Task.new,
+      userId: current_user.id,
+      notice: flash[:notice],
+      alert: flash[:alert]
+    })
+  end
+
+  def create
+    begin
+      @task = current_user.tasks.create(new_task_params)
+    rescue => e
+      flash[:alert] = "Oops! Something went wrong.  Please contact support."
+    end
+
+    redirect_to user_path(current_user)
+  end
 
   def show
     @task = task
@@ -68,14 +88,13 @@ class TasksController < ApplicationController
     )
   end
 
-  def user_params
-    params.require(:user_id)
-    params.permit(:user_id)
-  end
-
   def task_params
     params.require(:id)
     params.permit(:id, :user_id)
+  end
+
+  def new_task_params
+    params.require(:task).permit(:name, :description)
   end
 
   def unpack_params

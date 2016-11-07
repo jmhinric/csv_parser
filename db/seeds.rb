@@ -8,7 +8,7 @@
 
 
 ActiveRecord::Base.transaction do
-  user = User.create!(email: "rob@alliant.com", password: "password", password_confirmation: "password")
+  user = User.create!(email: "john@evergreen.com", password: "password", password_confirmation: "password")
 
   # Example 1
   # Cost Analysis
@@ -145,17 +145,17 @@ ActiveRecord::Base.transaction do
 
   # Example 2
   task2 = Task.create!(
-    name: "Population Expenses",
+    name: "Example 2",
     description: "Example 2: Simple case of copying from two origin files to one destination file",
     user: user
   )
 
-  expenses = OriginFile.create!(name: "Expenses", position: 0, task: task2)
-  population = OriginFile.create!(name: "Population", position: 1, task: task2)
+  origin1 = OriginFile.create!(name: "Origin 1", position: 0, task: task2)
+  origin2 = OriginFile.create!(name: "Origin 2", position: 1, task: task2)
 
   result_file2 = DestinationFile.create!(
     name: "Example 2 Final",
-    path: "population_expenses_final.xlsx",
+    path: "example2_final.xlsx",
     task: task2
   )
 
@@ -163,7 +163,7 @@ ActiveRecord::Base.transaction do
     DataTransfer.create!(
       origin_worksheet_index: 0,
       destination_worksheet_index: 0,
-      origin_file: expenses,
+      origin_file: origin1,
       destination_file: result_file2,
       origin_row: row,
       origin_col: 3,
@@ -176,7 +176,7 @@ ActiveRecord::Base.transaction do
     DataTransfer.create!(
       origin_worksheet_index: 0,
       destination_worksheet_index: 0,
-      origin_file: population,
+      origin_file: origin2,
       destination_file: result_file2,
       origin_row: row,
       origin_col: 1,
@@ -188,7 +188,7 @@ ActiveRecord::Base.transaction do
   DataTransfer.create!(
     origin_worksheet_index: 0,
     destination_worksheet_index: 0,
-    origin_file: population,
+    origin_file: origin2,
     destination_file: result_file2,
     origin_row: 12,
     origin_col: 3,
