@@ -1,33 +1,31 @@
-<main class="simple-form-container">
-  <section class="simple-form">
-    <div class="flash-message-wrapper">
-      <% if notice %>
-        <p class="notice flash-message success"><%= notice %></p>
+<main class="simple-form">
+  <div class="flash-message-wrapper">
+    <% if notice %>
+      <p class="notice flash-message success"><%= notice %></p>
+    <% end %>
+  </div>
+  <%= render "shared/flash_alert_message" %>
+
+  <h2>Contact Us</h2>
+
+  <section id="email-form-wrapper">
+    <div class="email-form">
+      <h3>We appreciate any questions, comments or inquiries</h3>
+      <%= form_for @contact_comment, url: {action: "create"}, html: {class: "nifty_form"} do |f| %>
+        <div class="field">
+          <%= label_tag "Name" %>
+          <%= f.text_field :name, { required: true } %>
+        </div>
+        <div class="field">
+          <%= label_tag "Email" %>
+          <%= f.text_field :email, { type: "email", required: true, pattern: "[^@]+@[^@]+\.[a-zA-Z]{2,6}" } %>
+        </div>
+        <div class="field">
+          <%= label_tag "Message" %>
+          <%= f.text_area :message, { required: true } %>
+        </div>
+        <%= f.submit "Submit", class: "contact-submit button" %>
       <% end %>
     </div>
-    <%= render "shared/flash_messages" %>
-
-    <h2>Contact Us</h2>
-
-    <section id="email-form-wrapper">
-      <div class="email-form">
-        <h3>We appreciate any questions, comments or inquiries</h3>
-        <%= form_for @contact_comment, url: {action: "create"}, html: {class: "nifty_form"} do |f| %>
-          <div class="field">
-            <%= label_tag "Name" %>
-            <%= f.text_field :name, { required: true } %>
-          </div>
-          <div class="field">
-            <%= label_tag "Email" %>
-            <%= f.text_field :email, { type: "email", required: true, pattern: "[^@]+@[^@]+\.[a-zA-Z]{2,6}" } %>
-          </div>
-          <div class="field">
-            <%= label_tag "Message" %>
-            <%= f.text_area :message, { required: true } %>
-          </div>
-          <%= f.submit "Submit", class: "contact-submit button" %>
-        <% end %>
-      </div>
-    </section>
   </section>
 </main>

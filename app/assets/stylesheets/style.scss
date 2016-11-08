@@ -1,9 +1,17 @@
 @import "colors";
 @import "fonts";
 
+html {
+  position: relative;
+  min-height: 100%;
+}
+
 html, body {
-  height: 100%;
   font-family: $sans-serif-font;
+}
+
+body {
+  margin: 0 0 100px;
 }
 
 main {
