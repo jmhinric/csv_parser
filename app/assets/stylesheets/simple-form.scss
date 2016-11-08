@@ -1,41 +1,37 @@
-.simple-form-container {
+.simple-form {
+  width: 100%;
+  margin: 0 auto;
+  padding: 100px 0 50px;
 
-  .simple-form {
-    height: 770px;
+  h2, h3 {
+    text-align: center;
+  }
+
+  .field {
+    padding-top: 20px;
     width: 100%;
-    margin: 0 auto;
-    padding: 100px 0 50px;
+    text-align: center;
+  }
 
-    h2, h3 {
-      text-align: center;
-    }
+  .field,
+  input[type=text],
+  input[type=email],
+  input[type=password],
+  input[type=submit],
+  textarea {
+    margin: 5px auto 0;
+  }
 
-    .field {
-      padding-top: 20px;
-      width: 100%;
-      text-align: center;
-    }
+  textarea {
+    width: 40%;
+  }
 
-    .field,
-    input[type=text],
-    input[type=email],
-    input[type=password],
-    input[type=submit],
-    textarea {
-      margin: 5px auto 0;
-    }
+  input[type=submit] {
+    margin: 20px auto;
+  }
 
-    textarea {
-      width: 40%;
-    }
-
-    input[type=submit] {
-      margin: 20px auto;
-    }
-
-    .devise-link {
-      margin-bottom: 5px;
-      text-align: center;
-    }
+  .devise-link {
+    margin-bottom: 5px;
+    text-align: center;
   }
 }

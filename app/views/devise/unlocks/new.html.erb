@@ -1,21 +1,19 @@
-<main class="simple-form-container">
-  <section class="simple-form">
-    <%= render "/shared/flash_messages" %>
-    <h2>Resend unlock instructions</h2>
+<main class="simple-form">
+  <%= render "/shared/flash_alert_message" %>
+  <h2>Resend unlock instructions</h2>
 
-    <%= form_for(resource, as: resource_name, url: unlock_path(resource_name), html: { method: :post }) do |f| %>
-      <%= devise_error_messages! %>
+  <%= form_for(resource, as: resource_name, url: unlock_path(resource_name), html: { method: :post }) do |f| %>
+    <%= devise_error_messages! %>
 
-      <div class="field">
-        <%= f.label :email %><br />
-        <%= f.email_field :email, autofocus: true %>
-      </div>
+    <div class="field">
+      <%= f.label :email %><br />
+      <%= f.email_field :email, autofocus: true %>
+    </div>
 
-      <div class="actions">
-        <%= f.submit "Resend unlock instructions", class: "submit button-long" %>
-      </div>
-    <% end %>
+    <div class="actions">
+      <%= f.submit "Resend unlock instructions", class: "submit button-long" %>
+    </div>
+  <% end %>
 
-    <%= render "devise/shared/links" %>
-  </section>
+  <%= render "devise/shared/links" %>
 </main>
