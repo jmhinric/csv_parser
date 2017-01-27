@@ -1,9 +1,9 @@
 //= depend_on_asset "grid-paper.jpg"
-
 @import "colors";
+@import "mixins";
 
 #task-show {
-  width: 100%;
+  @include gridPaperBackground;
   background: url('<%= asset_path("grid-paper.jpg") %> ') repeat;
 
   .wrapper-seventy {

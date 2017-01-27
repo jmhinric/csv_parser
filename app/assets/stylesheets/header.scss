@@ -1,9 +1,10 @@
 @import "colors";
 @import "fonts";
+@import "constants";
 
 header {
   background-color: $dark-green;
-  height: 84px;
+  height: $header-height;
 }
 
 #navbar {

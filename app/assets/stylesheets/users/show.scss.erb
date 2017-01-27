@@ -1,7 +1,8 @@
 //= depend_on_asset "grid-paper.jpg"
+@import "mixins";
 
 #user-show {
-  width: 100%;
+  @include gridPaperBackground;
   background: url('<%= asset_path("grid-paper.jpg") %> ') repeat;
 
   .page-top-section {
