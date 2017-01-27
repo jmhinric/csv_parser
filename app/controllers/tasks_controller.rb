@@ -14,7 +14,7 @@ class TasksController < ApplicationController
   include Exceptions
 
   before_action :authenticate_user!
-  skip_before_filter :verify_authenticity_token
+  skip_before_action :verify_authenticity_token
 
   TEMPLATE_BASE_PATH = 'lib/assets/templates/'
 
