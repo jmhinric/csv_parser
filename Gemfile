@@ -32,6 +32,8 @@ gem 'annotate', github: 'ctran/annotate_models'
 
 gem 'rubyXL'
 
+gem 'react-rails'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
@@ -64,5 +66,10 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
+# Load bower packages
+source 'https://rails-assets.org' do
+  gem 'rails-assets-underscore'
+end
 
 ruby '2.3.1'

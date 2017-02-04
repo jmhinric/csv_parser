@@ -13,4 +13,11 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
+//= require utils
+
+//= require react
+//= require react_ujs
+//= require components
+
+//= require underscore
 //= require_tree .
