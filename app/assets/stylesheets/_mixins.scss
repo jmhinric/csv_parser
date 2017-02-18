@@ -35,7 +35,6 @@
 }
 
 @mixin gridPaperBackground {
-  position: absolute;
   top: $header-height;
   bottom: 0;
   width: 100%;
