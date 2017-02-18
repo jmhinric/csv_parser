@@ -13,4 +13,5 @@
 
 class ContactComment < ApplicationRecord
   validates :name, :email, :message, presence: true
+  validates_with Validators::EmailValidator, attributes: [:email]
 end
