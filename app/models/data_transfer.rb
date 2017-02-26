@@ -10,7 +10,6 @@
 #  origin_worksheet_index      :integer          default(0), not null
 #  destination_worksheet_index :integer          not null
 #  origin_file_id              :uuid
-#  destination_file_id         :uuid
 #  created_at                  :datetime         not null
 #  updated_at                  :datetime         not null
 #

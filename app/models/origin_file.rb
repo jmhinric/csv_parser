@@ -2,16 +2,16 @@
 #
 # Table name: origin_files
 #
-#  id         :uuid             not null, primary key
-#  name       :string           not null
-#  position   :integer
-#  task_id    :uuid
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id          :uuid             not null, primary key
+#  name        :string           not null
+#  position    :integer
+#  template_id :uuid
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
 #
 
 class OriginFile < ApplicationRecord
-  belongs_to :task
+  belongs_to :template
   has_many :data_transfers
 
   def transfers_by_column_and_destination_worksheet

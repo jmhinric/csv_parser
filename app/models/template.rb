@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: tasks
+# Table name: templates
 #
 #  id          :uuid             not null, primary key
 #  name        :string           not null
@@ -10,7 +10,7 @@
 #  updated_at  :datetime         not null
 #
 
-class Task < ApplicationRecord
+class Template < ApplicationRecord
   belongs_to :user
   has_many :origin_files
 

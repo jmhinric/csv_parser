@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170226032100) do
+ActiveRecord::Schema.define(version: 20170226051630) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,15 +38,15 @@ ActiveRecord::Schema.define(version: 20170226032100) do
   end
 
   create_table "origin_files", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
-    t.string   "name",       null: false
+    t.string   "name",        null: false
     t.integer  "position"
-    t.uuid     "task_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["position", "task_id"], name: "index_origin_files_on_position_and_task_id", unique: true, using: :btree
+    t.uuid     "template_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["position", "template_id"], name: "index_origin_files_on_position_and_template_id", unique: true, using: :btree
   end
 
-  create_table "tasks", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
+  create_table "templates", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
     t.string   "name",        null: false
     t.string   "description"
     t.uuid     "user_id"
@@ -72,6 +72,6 @@ ActiveRecord::Schema.define(version: 20170226032100) do
   end
 
   add_foreign_key "data_transfers", "origin_files"
-  add_foreign_key "origin_files", "tasks"
-  add_foreign_key "tasks", "users"
+  add_foreign_key "origin_files", "templates"
+  add_foreign_key "templates", "users"
 end

@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: tasks
+# Table name: templates
 #
 #  id          :uuid             not null, primary key
 #  name        :string           not null
@@ -10,7 +10,7 @@
 #  updated_at  :datetime         not null
 #
 
-class TasksController < ApplicationController
+class TemplatesController < ApplicationController
   include Exceptions
 
   # TODO look more into user authentication/authorization
@@ -18,8 +18,8 @@ class TasksController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def new
-    render(component: 'TaskNew', props: {
-      task: Task.new,
+    render(component: 'TemplateNew', props: {
+      template: Template.new,
       userId: current_user.id,
       notice: flash[:notice],
       alert: flash[:alert]
@@ -28,7 +28,7 @@ class TasksController < ApplicationController
 
   def create
     begin
-      @task = current_user.tasks.create(new_task_params)
+      @template = current_user.templates.create(new_template_params)
     rescue => e
       flash[:alert] = "Oops! Something went wrong.  Please contact support."
     end
@@ -37,14 +37,14 @@ class TasksController < ApplicationController
   end
 
   def show
-    @task = task
+    @template = template
   end
 
   def execute
     begin
       unpack_params
 
-      task.origin_files.each do |origin_file|
+      template.origin_files.each do |origin_file|
         DataTransfersService.execute(
           origin_file: origin_file,
           origin_file_upload: RubyXL::Parser.parse(send(origin_file.param_name).open),
@@ -57,55 +57,55 @@ class TasksController < ApplicationController
           send_data result_file_upload.stream.read, {
             type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
             disposition:'attachment',
-            filename: task.filename + '.xlsx'
+            filename: template.filename + '.xlsx'
           }
         }
       end
     rescue Exceptions::MissingParamError => e
       flash[:alert] = e.message
-      redirect_to user_task_path(current_user, task)
+      redirect_to user_template_path(current_user, template)
     rescue => e
       flash[:alert] = "Oops! Something went wrong.  Please contact support."
-      redirect_to user_task_path(current_user, task)
+      redirect_to user_template_path(current_user, template)
     end
   end
 
   private
 
-  def task
-    @task ||= Task
+  def template
+    @template ||= Template
       .includes(origin_files: :data_transfers)
-      .find(task_params[:id])
+      .find(template_params[:id])
   end
 
   def result_file_upload
     @result_file_upload ||= RubyXL::Parser.parse(destination_file.open)
   end
 
-  def task_params
+  def template_params
     params.require(:id)
     params.permit(:id, :user_id)
   end
 
-  def new_task_params
-    params.require(:task).permit(:name, :description)
+  def new_template_params
+    params.require(:template).permit(:name, :description)
   end
 
   def destination_file_params
-    params.require(task.file_param_name)
-    params.permit(task.file_param_name)
+    params.require(template.file_param_name)
+    params.permit(template.file_param_name)
   end
 
   def destination_file
-    destination_file_params[task.file_param_name]
+    destination_file_params[template.file_param_name]
   end
 
   def unpack_params
-    task.origin_files.map(&:param_name).each do |param_name|
+    template.origin_files.map(&:param_name).each do |param_name|
       unless params[param_name]
         raise Exceptions::MissingParamError, "#{file.name} file was missing."
       end
-      raise Exceptions::MissingParamError, "#{task.name} file was missing." unless destination_file
+      raise Exceptions::MissingParamError, "#{template.name} file was missing." unless destination_file
 
       params_method = "#{param_name}_params".to_sym
 

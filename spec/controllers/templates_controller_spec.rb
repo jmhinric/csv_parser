@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: tasks
+# Table name: templates
 #
 #  id          :uuid             not null, primary key
 #  name        :string           not null
@@ -12,16 +12,16 @@
 
 require 'rails_helper'
 
-RSpec.describe TasksController, type: :controller do
+RSpec.describe TemplatesController, type: :controller do
   include_context 'user signed in'
 
   let(:params) { { user_id: user.id } }
   let(:body) { JSON.parse(response.body) }
 
   describe '#show' do
-    let!(:task) { create(:task, user: user) }
+    let!(:template) { create(:template, user: user) }
 
-    before { get :show, params.merge(id: task.id) }
+    before { get :show, params.merge(id: template.id) }
 
     it 'is successful' do
       expect(response).to have_http_status(:success)
@@ -29,19 +29,19 @@ RSpec.describe TasksController, type: :controller do
   end
 
   describe '#create' do
-    let(:task_params) { params.merge(task: { name: 'Task Name', description: 'Task description' }) }
-    let(:task) { Task.first }
+    let(:template_params) { params.merge(template: { name: 'Template Name', description: 'Template description' }) }
+    let(:template) { Template.first }
 
-    subject { post :create, task_params }
+    subject { post :create, template_params }
 
     it 'redirects to user_path' do
       expect(subject).to redirect_to(user_path(user))
     end
 
-    it 'creates a task with proper attributes' do
-      expect { subject }.to change { Task.count }.by 1
-      expect(task.name).to eq('Task Name')
-      expect(task.description).to eq('Task description')
+    it 'creates a template with proper attributes' do
+      expect { subject }.to change { Template.count }.by 1
+      expect(template.name).to eq('Template Name')
+      expect(template.description).to eq('Template description')
     end
   end
 end
