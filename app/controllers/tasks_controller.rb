@@ -17,8 +17,6 @@ class TasksController < ApplicationController
   before_action :authenticate_user!
   skip_before_action :verify_authenticity_token
 
-  TEMPLATE_BASE_PATH = 'lib/assets/templates/'
-
   def new
     render(component: 'TaskNew', props: {
       task: Task.new,
@@ -47,11 +45,9 @@ class TasksController < ApplicationController
       unpack_params
 
       task.origin_files.each do |origin_file|
-        origin_file_upload = RubyXL::Parser.parse(send("#{origin_file.name_as_param}_file").open)
-
         DataTransfersService.execute(
           origin_file: origin_file,
-          origin_file_upload: origin_file_upload,
+          origin_file_upload: RubyXL::Parser.parse(send(origin_file.param_name).open),
           result_file: result_file_upload
         )
       end
@@ -61,7 +57,7 @@ class TasksController < ApplicationController
           send_data result_file_upload.stream.read, {
             type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
             disposition:'attachment',
-            filename: task.destination_files[0].path
+            filename: task.filename + '.xlsx'
           }
         }
       end
@@ -78,14 +74,12 @@ class TasksController < ApplicationController
 
   def task
     @task ||= Task
-                .includes(origin_files: { data_transfers: :destination_file })
-                .find(task_params[:id])
+      .includes(origin_files: :data_transfers)
+      .find(task_params[:id])
   end
 
   def result_file_upload
-    @result_file_upload ||= RubyXL::Parser.parse(
-      send("#{task.destination_files[0].name_as_param}_file").open
-    )
+    @result_file_upload ||= RubyXL::Parser.parse(destination_file.open)
   end
 
   def task_params
@@ -97,24 +91,31 @@ class TasksController < ApplicationController
     params.require(:task).permit(:name, :description)
   end
 
+  def destination_file_params
+    params.require(task.file_param_name)
+    params.permit(task.file_param_name)
+  end
+
+  def destination_file
+    destination_file_params[task.file_param_name]
+  end
+
   def unpack_params
-    (task.origin_files + task.destination_files).each do |file|
-      unless params[file.name_as_param]
-        num_files = (task.origin_files + task.destination_files).count
-        raise Exceptions::MissingParamError, "\"#{file.name}\" file was missing. " +
-          "All #{num_files} files are required."
+    task.origin_files.map(&:param_name).each do |param_name|
+      unless params[param_name]
+        raise Exceptions::MissingParamError, "#{file.name} file was missing."
+      end
+      raise Exceptions::MissingParamError, "#{task.name} file was missing." unless destination_file
+
+      params_method = "#{param_name}_params".to_sym
+
+      define_singleton_method (params_method) do
+        params.require(param_name)
+        params.permit(param_name)
       end
 
-      file_params_method = "#{file.name_as_param}_params".to_sym
-      file_method = "#{file.name_as_param}_file".to_sym
-
-      define_singleton_method (file_params_method) do
-        params.require(file.name_as_param)
-        params.permit(file.name_as_param)
-      end
-
-      define_singleton_method (file_method) do
-        send(file_params_method)[file.name_as_param]
+      define_singleton_method (param_name) do
+        send(params_method)[param_name]
       end
     end
   end

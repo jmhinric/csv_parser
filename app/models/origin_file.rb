@@ -18,9 +18,7 @@ class OriginFile < ApplicationRecord
     data_transfers
       .group_by(&:origin_col).values.map do |data_transfers|
         data_transfers.group_by(&:destination_worksheet_index).values
-        .map do |data_transfers|
-          DataTransfersPresenter.transfers(data_transfers)
-        end
+        .map { |data_transfers| DataTransfersPresenter.transfers(data_transfers) }
       end
   end
 
@@ -28,7 +26,7 @@ class OriginFile < ApplicationRecord
     data_transfers.group_by(&:destination_worksheet_index)
   end
 
-  def name_as_param
-    "origin_#{name.downcase.gsub(' ', '_')}".to_sym
+  def param_name
+    "origin_#{name.downcase.gsub(' ', '_')}_file".to_sym
   end
 end

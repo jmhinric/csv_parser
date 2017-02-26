@@ -25,23 +25,21 @@
                   <table border="1">
                     <tbody>
                       <tr>
-                        <th>Origin file</th>
+                        <th colspan="2">Origin</th>
+                        <th colspan="2">Destination</th>
+                      </tr>
+                      <tr>
                         <th>Worksheet</th>
-                        <th>Origin Cell</th>
-                        <th></th>
-                        <th>Destination file</th>
+                        <th>Cell</th>
                         <th>Worksheet</th>
-                        <th>Destination Cell</th>
+                        <th>Cell</th>
                       </tr>
                       <% data_transfers.each_with_index do |data_transfer, index| %>
                         <tr class=<%= "table-row-#{index % 2 == 0 ? 'even' : 'odd'}" %>>
-                          <td><%= data_transfer[:origin_file] %></td>
                           <td><%= data_transfer[:origin_worksheet] %></td>
-                          <td><%= data_transfer[:from] %></td>
-                          <td></td>
-                          <td><%= data_transfer[:destination_file] %></td>
+                          <td><%= data_transfer[:origin_cell] %></td>
                           <td><%= data_transfer[:destination_worksheet] %></td>
-                          <td><%= data_transfer[:to] %></td>
+                          <td><%= data_transfer[:destination_cell] %></td>
                         </tr>
                       <% end %>
                     </tbody>
