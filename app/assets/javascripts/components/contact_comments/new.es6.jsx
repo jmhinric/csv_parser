@@ -5,7 +5,7 @@ const ContactCommentNew = React.createClass({
     alert: React.PropTypes.string
   },
 
-  handleMessageChange(e) {
+  handleTextChange(e) {
     this.props.contactComment.message = e.target.value;
   },
 
@@ -36,7 +36,7 @@ const ContactCommentNew = React.createClass({
               </div>
               <div className="field">
                 <div>Message:</div>
-                <textarea onChange={this.handleMessageChange}></textarea>
+                <textarea onChange={this.handleTextChange}></textarea>
               </div>
               <input
                 type="submit"

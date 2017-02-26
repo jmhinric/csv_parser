@@ -1,7 +1,7 @@
-<main id="task-show" class="centered-container">
+<main id="task-show" class="centered-container grid-paper-background">
   <div class="wrapper-seventy">
     <div class="small-link">
-      <%= link_to "Back to #{@task.name} Task", user_task_path(current_user, @task) %>
+      <%= link_to "Back to #{@task.name} Task", task_path(@task) %>
     </div>
 
     <section class="task-info">
@@ -56,7 +56,7 @@
     </section>
 
     <div class="small-link">
-      <%= link_to "Back to #{@task.name} Task", data_transfers_path(@task) %>
+      <%= link_to "Back to #{@task.name} Task", task_path(@task) %>
     </div>
   </div>
 </main>

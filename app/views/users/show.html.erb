@@ -1,4 +1,4 @@
-<main id="user-show" class="centered-container">
+<main id="user-show" class="centered-container grid-paper-background">
   <div class="wrapper-seventy">
     <section class="page-top-section">
       <h2>My Report Tasks:</h2>
@@ -8,7 +8,7 @@
       <% @tasks.each do |task| %>
         <div class="user-task-group">
           <h3 class="underlined-link">
-            <%= link_to task.name, user_task_path(current_user, task) %>
+            <%= link_to task.name, task_path(task) %>
           </h3>
           <div><%= task.description %></div>
         </div>
@@ -22,5 +22,9 @@
         </h3>
       <% end %>
     </section>
+
+    <div class="small-link">
+      <%= link_to 'Add a Report Task', new_task_path %>
+    </div>
   </div>
 </main>

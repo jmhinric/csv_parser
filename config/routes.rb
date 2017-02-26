@@ -3,10 +3,10 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root to: 'welcome#index'
 
-  resources :users, only: :show do
-    resources :tasks, only: :show do
-      post 'execute', on: :member
-    end
+  resources :users, only: :show
+
+  resources :tasks, only: [:new, :create, :show] do
+    post 'execute', on: :member
   end
 
   scope 'tasks/:id' do
