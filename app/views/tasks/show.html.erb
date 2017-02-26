@@ -23,28 +23,26 @@
             <% @task.origin_files.order(:position).each do |file| %>
               <div class="Grid task-execute">
                 <div class="Grid-cell u-size1of2">
-                  <%= label_tag file.name_as_param, "#{file.name}" %>
+                  <%= label_tag file.param_name, "#{file.name}" %>
                 </div>
                 <div class="Grid-cell u-size1of2">
-                  <%= file_field_tag file.name_as_param, { required: true } %>
+                  <%= file_field_tag file.param_name, { required: true } %>
                 </div>
               </div>
             <% end %>
           </div>
 
-          <!-- DestinationFile inputs -->
-          <h3 class="file-input-header">Destination files:</h3>
+          <!-- DestinationFile input -->
+          <h3 class="file-input-header">Destination file:</h3>
           <div class="input-group">
-            <% @task.destination_files.order(:position).each do |file| %>
-              <div class="Grid task-execute">
-                <div class="Grid-cell u-size1of2">
-                  <%= label_tag file.name_as_param, "#{file.name}" %>
-                </div>
-                <div class="Grid-cell u-size1of2">
-                  <%= file_field_tag file.name_as_param %>
-                </div>
+            <div class="Grid task-execute">
+              <div class="Grid-cell u-size1of2">
+                <%= label_tag @task.file_param_name, @task.name %>
               </div>
-            <% end %>
+              <div class="Grid-cell u-size1of2">
+                <%= file_field_tag @task.file_param_name %>
+              </div>
+            </div>
           </div>
 
           <%= submit_tag('Generate Report', class: 'submit button') %>

@@ -13,5 +13,12 @@
 class Task < ApplicationRecord
   belongs_to :user
   has_many :origin_files
-  has_many :destination_files
+
+  def filename
+    name.downcase.gsub(' ', '_')
+  end
+
+  def file_param_name
+    "dest_#{filename}_file".to_sym
+  end
 end

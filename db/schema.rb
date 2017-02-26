@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161028040811) do
+ActiveRecord::Schema.define(version: 20170226032100) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,19 +33,8 @@ ActiveRecord::Schema.define(version: 20161028040811) do
     t.integer  "origin_worksheet_index",      default: 0, null: false
     t.integer  "destination_worksheet_index",             null: false
     t.uuid     "origin_file_id"
-    t.uuid     "destination_file_id"
     t.datetime "created_at",                              null: false
     t.datetime "updated_at",                              null: false
-  end
-
-  create_table "destination_files", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
-    t.string   "name",       null: false
-    t.integer  "position"
-    t.string   "path"
-    t.uuid     "task_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["position", "task_id"], name: "index_destination_files_on_position_and_task_id", unique: true, using: :btree
   end
 
   create_table "origin_files", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
@@ -82,9 +71,7 @@ ActiveRecord::Schema.define(version: 20161028040811) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
-  add_foreign_key "data_transfers", "destination_files"
   add_foreign_key "data_transfers", "origin_files"
-  add_foreign_key "destination_files", "tasks"
   add_foreign_key "origin_files", "tasks"
   add_foreign_key "tasks", "users"
 end

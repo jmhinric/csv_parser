@@ -17,7 +17,6 @@
 
 class DataTransfer < ApplicationRecord
   belongs_to :origin_file
-  belongs_to :destination_file
 
   def origin_file_name
     origin_file.name
