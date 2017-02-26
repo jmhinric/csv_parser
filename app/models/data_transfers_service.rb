@@ -19,7 +19,10 @@ class DataTransfersService
         origin_ws = origin_file_upload[origin_ws_index]
 
         transfers.each do |data_transfer|
-          dest_cell(data_transfer, dest_ws).raw_value = origin_cell(data_transfer, origin_ws).value
+          dest_cell = cell(data_transfer.destination_row, data_transfer.destination_col, dest_ws)
+          origin_cell = cell(data_transfer.origin_row, data_transfer.origin_col, origin_ws)
+
+          dest_cell.raw_value = origin_cell.value
         end
       end
     end
@@ -29,27 +32,12 @@ class DataTransfersService
 
   private
 
-  def dest_cell(data_transfer, worksheet)
-    row = data_transfer.destination_row
-    col = data_transfer.destination_col
-
+  def cell(row, column, worksheet)
     ws_row = worksheet[row]
-    cell = ws_row[col] if ws_row
+    cell = ws_row[column] if ws_row
 
     return cell if ws_row && cell
 
-    worksheet.add_cell(row, col)
-  end
-
-  def origin_cell(data_transfer, worksheet)
-    row = data_transfer.origin_row
-    col = data_transfer.origin_col
-
-    ws_row = worksheet[row]
-    cell = ws_row[col] if ws_row
-
-    return cell if ws_row && cell
-
-    worksheet.add_cell(row, col)
+    worksheet.add_cell(row, column)
   end
 end

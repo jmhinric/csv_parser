@@ -1,8 +1,10 @@
-<main id="template-show" class="centered-container grid-paper-background">
+<main id="template-show" class="grid-paper-background">
   <%= render "shared/flash_alert_message" %>
 
   <div class="wrapper-seventy">
-    <div class="small-link"><%= link_to 'Back to My Report Templates', user_path(current_user) %></div>
+    <div class="small-link u-paddingTop5">
+      <%= link_to 'Back to My Report Templates', templates_path %>
+    </div>
 
     <section class="template-info">
 
@@ -18,7 +20,7 @@
         <%= form_tag("#{@template.id}/execute.xlsx", multipart: true) do %>
 
           <!-- OriginFile inputs -->
-          <h3 class="file-input-header">Origin files:</h3>
+          <h3 class="file-input-header">Origin files</h3>
           <div class="input-group">
             <% @template.origin_files.order(:position).each do |file| %>
               <div class="Grid template-execute">
@@ -33,7 +35,7 @@
           </div>
 
           <!-- DestinationFile input -->
-          <h3 class="file-input-header">Destination file:</h3>
+          <h3 class="file-input-header">Destination file</h3>
           <div class="input-group">
             <div class="Grid template-execute">
               <div class="Grid-cell u-size1of2">

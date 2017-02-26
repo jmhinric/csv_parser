@@ -1,0 +1,12 @@
+@import "colors";
+
+.plus-icon {
+  display: block;
+  color: white;
+  background-color: $base-green-light;
+  font-size: 14px;
+  border-radius: 20px;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}

@@ -14,7 +14,7 @@
 
           <% if current_user %>
             <li class="border-right">
-              <%= link_to current_user.email, user_path(current_user) %>
+              <%= link_to 'My Templates', templates_path %>
             </li>
             <li class="border-right">
               <%= link_to "Log Out", "/users/sign_out", method: "delete" %>

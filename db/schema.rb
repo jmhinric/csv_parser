@@ -10,11 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170226051630) do
+ActiveRecord::Schema.define(version: 20170226055829) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "uuid-ossp"
+
+  create_table "cell_ranges", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
+    t.string   "type"
+    t.string   "begin_value"
+    t.string   "end_value"
+    t.integer  "worksheet_index"
+    t.uuid     "data_transfer_id"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.index ["data_transfer_id"], name: "index_cell_ranges_on_data_transfer_id", using: :btree
+  end
 
   create_table "contact_comments", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
     t.string   "name"
@@ -26,15 +37,10 @@ ActiveRecord::Schema.define(version: 20170226051630) do
   end
 
   create_table "data_transfers", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
-    t.integer  "origin_row",                              null: false
-    t.integer  "origin_col",                              null: false
-    t.integer  "destination_row",                         null: false
-    t.integer  "destination_col",                         null: false
-    t.integer  "origin_worksheet_index",      default: 0, null: false
-    t.integer  "destination_worksheet_index",             null: false
     t.uuid     "origin_file_id"
-    t.datetime "created_at",                              null: false
-    t.datetime "updated_at",                              null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.string   "type"
   end
 
   create_table "origin_files", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|

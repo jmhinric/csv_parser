@@ -49,6 +49,7 @@ group :development, :test do
   gem 'pry-rails'
   gem 'pry-remote'
   gem 'rubocop'
+  gem 'table_print'
 end
 
 group :development do
