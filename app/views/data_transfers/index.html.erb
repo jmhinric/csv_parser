@@ -1,7 +1,7 @@
-<main id="template-show" class="centered-container grid-paper-background">
+<main id="template-show" class="grid-paper-background">
   <div class="wrapper-seventy">
-    <div class="small-link">
-      <%= link_to "Back to #{@template.name} Template", template_path(@template) %>
+    <div class="small-link u-paddingTop5">
+      <%= link_to "Back to #{@template.name}", template_path(@template) %>
     </div>
 
     <section class="template-info">
@@ -17,7 +17,16 @@
 
       <% @template.origin_files.each do |origin_file| %>
         <div class="file-group">
-          <h3><%= origin_file.name %></h3>
+          <h3 class="u-paddingBottom1"><%= origin_file.name %></h3>
+          <div class="u-paddingBottom3">
+            <a
+              href="origin_files/<%= origin_file.id %>/data_transfers/new"
+              class="small-link u-posCenter"
+            >
+              Add data transfers
+            </a>
+          </div>
+
           <div class="transfer-groups-container">
             <% origin_file.transfers_by_column_and_destination_worksheet.each do |groups| %>
               <% groups.each do |data_transfers| %>
@@ -53,7 +62,7 @@
       <% end %>
     </section>
 
-    <div class="small-link">
+    <div class="small-link u-paddingBottom5">
       <%= link_to "Back to #{@template.name} Template", template_path(@template) %>
     </div>
   </div>

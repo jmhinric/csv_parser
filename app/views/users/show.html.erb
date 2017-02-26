@@ -1,7 +1,10 @@
-<main id="user-show" class="centered-container grid-paper-background">
+<main id="user-show" class="grid-paper-background">
   <div class="wrapper-seventy">
     <section class="page-top-section">
       <h2>My Report Templates:</h2>
+      <div class="small-link u-paddingTop1pt5">
+        <%= link_to 'Add a Report Template', new_template_path %>
+      </div>
     </section>
 
     <section class="templates-wrapper">
@@ -23,8 +26,5 @@
       <% end %>
     </section>
 
-    <div class="small-link">
-      <%= link_to 'Add a Report Template', new_template_path %>
-    </div>
   </div>
 </main>

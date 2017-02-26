@@ -17,17 +17,38 @@
 class DataTransfersController < ApplicationController
 
   before_action :authenticate_user!
+  before_action :load_template, only: [:index, :new]
+  before_action :load_origin_file, only: :new
   skip_before_filter :verify_authenticity_token
 
+  # TODO: implement AUTHORIZATION
   def index
-    # TODO: implement AUTHORIZATION
-    @template ||= Template.find(template_params[:id])
+  end
+
+  # TODO: implement AUTHORIZATION
+  def new
+    render(
+      component: 'DataTransferNew',
+      props: {
+        template: @template,
+        originFile: @origin_file,
+        notice: flash[:notice],
+        alert: flash[:alert]
+      }
+    )
   end
 
   private
 
-  def template_params
-    params.require(:id)
-    params.permit(:id)
+  def resource_params
+    params.permit(:id, :origin_file_id)
+  end
+
+  def load_template
+    @template = Template.find(resource_params[:id])
+  end
+
+  def load_origin_file
+    @origin_file = OriginFile.find(resource_params[:origin_file_id])
   end
 end
