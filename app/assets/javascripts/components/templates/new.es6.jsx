@@ -10,36 +10,36 @@ const NewDataTransfer = () => (
   </div>
 );
 
-const TaskNew = React.createClass({
+const TemplateNew = React.createClass({
   propTypes: {
-    task: React.PropTypes.object.isRequired,
+    template: React.PropTypes.object.isRequired,
     userId: React.PropTypes.string,
     notice: React.PropTypes.string,
     alert: React.PropTypes.string
   },
 
   handleTextChange(e) {
-    this.props.task.description = e.target.value;
+    this.props.template.description = e.target.value;
   },
 
   handleSubmit(e) {
     e.preventDefault();
-    $.post('/tasks', { task: this.props.task })
+    $.post('/templates', { template: this.props.template })
   },
 
   render() {
-    const { task, userId, notice, alert } = this.props;
+    const { template, userId, notice, alert } = this.props;
 
     return (
       // TODO remove 800px styling once background image styling has been fixed.
       <div className="simple-form grid-paper-background" style={{"height": "800px"}}>
         <FlashMessage notice={notice} alert={alert} />
 
-        <h2>New Report Task</h2>
+        <h2>New Report Template</h2>
         <form className="slim-form">
           <div className="field">
             <div>Name</div>
-            <ModelInput model={task} attribute="name" />
+            <ModelInput model={template} attribute="name" />
           </div>
           <div className="field">
             <div>Description</div>
@@ -55,7 +55,7 @@ const TaskNew = React.createClass({
           />
 
           <div className="small-link">
-            <a href={`/users/${userId}`}>Back to My Report Tasks</a>
+            <a href={`/users/${userId}`}>Back to My Report Templates</a>
           </div>
         </form>
       </div>

@@ -5,11 +5,11 @@ Rails.application.routes.draw do
 
   resources :users, only: :show
 
-  resources :tasks, only: [:new, :create, :show] do
+  resources :templates, only: [:new, :create, :show] do
     post 'execute', on: :member
   end
 
-  scope 'tasks/:id' do
+  scope 'templates/:id' do
     resources :data_transfers, only: :index
   end
 

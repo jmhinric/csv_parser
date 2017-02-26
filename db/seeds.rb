@@ -12,14 +12,14 @@ ActiveRecord::Base.transaction do
 
   # Example 1
   # Cost Analysis
-  task = Task.create!(
+  template = Template.create!(
     name: "Cost Analysis Report",
     description: "Example 1: Cost analysis report based on Enrollment and Claims forms",
     user: user
   )
 
-  enrollment = OriginFile.create!(name: "Enrollment", position: 0, task: task)
-  claims = OriginFile.create!(name: "Claims", position: 1, task: task)
+  enrollment = OriginFile.create!(name: "Enrollment", position: 0, template: template)
+  claims = OriginFile.create!(name: "Claims", position: 1, template: template)
 
   (12..23).each do |row|
     DataTransfer.create!(
@@ -129,14 +129,14 @@ ActiveRecord::Base.transaction do
 
 
   # Example 2
-  task2 = Task.create!(
+  template2 = Template.create!(
     name: "Example 2",
     description: "Example 2: Simple case of copying from two origin files to one destination file",
     user: user
   )
 
-  origin1 = OriginFile.create!(name: "Origin 1", position: 0, task: task2)
-  origin2 = OriginFile.create!(name: "Origin 2", position: 1, task: task2)
+  origin1 = OriginFile.create!(name: "Origin 1", position: 0, template: template2)
+  origin2 = OriginFile.create!(name: "Origin 2", position: 1, template: template2)
 
   (10..12).each do |row|
     DataTransfer.create!(

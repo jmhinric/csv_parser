@@ -1,30 +1,30 @@
 <main id="user-show" class="centered-container grid-paper-background">
   <div class="wrapper-seventy">
     <section class="page-top-section">
-      <h2>My Report Tasks:</h2>
+      <h2>My Report Templates:</h2>
     </section>
 
-    <section class="tasks-wrapper">
-      <% @tasks.each do |task| %>
-        <div class="user-task-group">
+    <section class="templates-wrapper">
+      <% @templates.each do |template| %>
+        <div class="user-template-group">
           <h3 class="underlined-link">
-            <%= link_to task.name, task_path(task) %>
+            <%= link_to template.name, template_path(template) %>
           </h3>
-          <div><%= task.description %></div>
+          <div><%= template.description %></div>
         </div>
       <% end %>
 
-      <% if @tasks.count == 0 %>
+      <% if @templates.count == 0 %>
         <h3>
           <em>
-            You don't have any report tasks yet.  Please <%= link_to "contact us", contact_path %> for inquiries.
+            You don't have any report templates yet.  Please <%= link_to "contact us", contact_path %> for inquiries.
           </em>
         </h3>
       <% end %>
     </section>
 
     <div class="small-link">
-      <%= link_to 'Add a Report Task', new_task_path %>
+      <%= link_to 'Add a Report Template', new_template_path %>
     </div>
   </div>
 </main>

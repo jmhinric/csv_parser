@@ -1,27 +1,27 @@
-<main id="task-show" class="centered-container grid-paper-background">
+<main id="template-show" class="centered-container grid-paper-background">
   <%= render "shared/flash_alert_message" %>
 
   <div class="wrapper-seventy">
-    <div class="small-link"><%= link_to 'Back to My Report Tasks', user_path(current_user) %></div>
+    <div class="small-link"><%= link_to 'Back to My Report Templates', user_path(current_user) %></div>
 
-    <section class="task-info">
+    <section class="template-info">
 
-      <div class="task-header">
-        <h2><%= @task.name %></h2>
-        <p><%= @task.description %></p>
+      <div class="template-header">
+        <h2><%= @template.name %></h2>
+        <p><%= @template.description %></p>
         <div class="small-link">
-          <%= link_to 'Show data transfer details', data_transfers_path(@task.id) %>
+          <%= link_to 'Show data transfer details', data_transfers_path(@template.id) %>
         </div>
       </div>
 
       <div class="Grid form-container">
-        <%= form_tag("#{@task.id}/execute.xlsx", multipart: true) do %>
+        <%= form_tag("#{@template.id}/execute.xlsx", multipart: true) do %>
 
           <!-- OriginFile inputs -->
           <h3 class="file-input-header">Origin files:</h3>
           <div class="input-group">
-            <% @task.origin_files.order(:position).each do |file| %>
-              <div class="Grid task-execute">
+            <% @template.origin_files.order(:position).each do |file| %>
+              <div class="Grid template-execute">
                 <div class="Grid-cell u-size1of2">
                   <%= label_tag file.param_name, "#{file.name}" %>
                 </div>
@@ -35,12 +35,12 @@
           <!-- DestinationFile input -->
           <h3 class="file-input-header">Destination file:</h3>
           <div class="input-group">
-            <div class="Grid task-execute">
+            <div class="Grid template-execute">
               <div class="Grid-cell u-size1of2">
-                <%= label_tag @task.file_param_name, @task.name %>
+                <%= label_tag @template.file_param_name, @template.name %>
               </div>
               <div class="Grid-cell u-size1of2">
-                <%= file_field_tag @task.file_param_name %>
+                <%= file_field_tag @template.file_param_name %>
               </div>
             </div>
           </div>

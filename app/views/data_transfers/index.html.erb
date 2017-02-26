@@ -1,13 +1,13 @@
-<main id="task-show" class="centered-container grid-paper-background">
+<main id="template-show" class="centered-container grid-paper-background">
   <div class="wrapper-seventy">
     <div class="small-link">
-      <%= link_to "Back to #{@task.name} Task", task_path(@task) %>
+      <%= link_to "Back to #{@template.name} Template", template_path(@template) %>
     </div>
 
-    <section class="task-info">
-      <div class="task-header">
-        <h2><%= @task.name %></h2>
-        <p><%= @task.description %></p>
+    <section class="template-info">
+      <div class="template-header">
+        <h2><%= @template.name %></h2>
+        <p><%= @template.description %></p>
       </div>
     </section>
 
@@ -15,7 +15,7 @@
       <h2>Data transfers:</h2>
       <p>This report is generated through a series of automated spreadsheet copy-paste actions.  A particular cell is copied from a provided origin file to a particular cell of a provided destination file.  The following is a list of each of those data transfers that are executed to produce the final report.</p>
 
-      <% @task.origin_files.each do |origin_file| %>
+      <% @template.origin_files.each do |origin_file| %>
         <div class="file-group">
           <h3><%= origin_file.name %></h3>
           <div class="transfer-groups-container">
@@ -54,7 +54,7 @@
     </section>
 
     <div class="small-link">
-      <%= link_to "Back to #{@task.name} Task", task_path(@task) %>
+      <%= link_to "Back to #{@template.name} Template", template_path(@template) %>
     </div>
   </div>
 </main>
