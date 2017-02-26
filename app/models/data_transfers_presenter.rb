@@ -24,8 +24,8 @@ class DataTransfersPresenter
       {
         origin_cell: Cell.new(data_transfer.origin_row, data_transfer.origin_col).to_s,
         destination_cell: Cell.new(data_transfer.destination_row, data_transfer.destination_col).to_s,
-        origin_worksheet: data_transfer.origin_worksheet_name,
-        destination_worksheet: data_transfer.destination_worksheet_name
+        origin_worksheet: (data_transfer.origin_worksheet_index + 1).to_s,
+        destination_worksheet: (data_transfer.destination_worksheet_index + 1).to_s
       }
     end
   end

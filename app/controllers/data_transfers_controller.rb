@@ -9,7 +9,7 @@
 #  destination_col             :integer          not null
 #  origin_worksheet_index      :integer          default(0), not null
 #  destination_worksheet_index :integer          not null
-#  origin_file_id              :uuid
+#  data_transfer_group_id      :uuid
 #  created_at                  :datetime         not null
 #  updated_at                  :datetime         not null
 #

@@ -74,7 +74,7 @@ class TemplatesController < ApplicationController
 
   def template
     @template ||= Template
-      .includes(origin_files: :data_transfers)
+      .includes(origin_files: { data_transfer_groups: :data_transfers })
       .find(template_params[:id])
   end
 

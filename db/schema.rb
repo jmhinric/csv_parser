@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170226051630) do
+ActiveRecord::Schema.define(version: 20170226055829) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,15 @@ ActiveRecord::Schema.define(version: 20170226051630) do
     t.datetime "updated_at",                 null: false
   end
 
+  create_table "data_transfer_groups", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
+    t.integer  "from_type"
+    t.integer  "to_type"
+    t.uuid     "origin_file_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.index ["origin_file_id"], name: "index_data_transfer_groups_on_origin_file_id", using: :btree
+  end
+
   create_table "data_transfers", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
     t.integer  "origin_row",                              null: false
     t.integer  "origin_col",                              null: false
@@ -32,7 +41,7 @@ ActiveRecord::Schema.define(version: 20170226051630) do
     t.integer  "destination_col",                         null: false
     t.integer  "origin_worksheet_index",      default: 0, null: false
     t.integer  "destination_worksheet_index",             null: false
-    t.uuid     "origin_file_id"
+    t.uuid     "data_transfer_group_id"
     t.datetime "created_at",                              null: false
     t.datetime "updated_at",                              null: false
   end
@@ -71,7 +80,8 @@ ActiveRecord::Schema.define(version: 20170226051630) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
-  add_foreign_key "data_transfers", "origin_files"
+  add_foreign_key "data_transfer_groups", "origin_files"
+  add_foreign_key "data_transfers", "data_transfer_groups"
   add_foreign_key "origin_files", "templates"
   add_foreign_key "templates", "users"
 end

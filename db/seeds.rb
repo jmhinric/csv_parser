@@ -21,11 +21,12 @@ ActiveRecord::Base.transaction do
   enrollment = OriginFile.create!(name: "Enrollment", position: 0, template: template)
   claims = OriginFile.create!(name: "Claims", position: 1, template: template)
 
+  dtg1 = DataTransferGroup.create!(from_type: :column, to_type: :column, origin_file: enrollment)
   (12..23).each do |row|
     DataTransfer.create!(
+      data_transfer_group: dtg1,
       origin_worksheet_index: 0,
       destination_worksheet_index: 3,
-      origin_file: enrollment,
       origin_row: row,
       origin_col: 2,
       destination_row: row + 1,
@@ -33,9 +34,9 @@ ActiveRecord::Base.transaction do
     )
 
     DataTransfer.create!(
+      data_transfer_group: dtg1,
       origin_worksheet_index: 0,
       destination_worksheet_index: 4,
-      origin_file: enrollment,
       origin_row: row,
       origin_col: 8,
       destination_row: row + 1,
@@ -43,9 +44,9 @@ ActiveRecord::Base.transaction do
     )
 
     DataTransfer.create!(
+      data_transfer_group: dtg1,
       origin_worksheet_index: 0,
       destination_worksheet_index: 5,
-      origin_file: enrollment,
       origin_row: row,
       origin_col: 4,
       destination_row: row + 1,
@@ -54,11 +55,12 @@ ActiveRecord::Base.transaction do
   end
 
   # Medical
+  dtg2 = DataTransferGroup.create!(from_type: :column, to_type: :column, origin_file: claims)
   (11..22).each do |row|
     DataTransfer.create!(
+      data_transfer_group: dtg2,
       origin_worksheet_index: 0,
       destination_worksheet_index: 3,
-      origin_file: claims,
       origin_row: row,
       origin_col: 2,
       destination_row: row + 2,
@@ -68,9 +70,9 @@ ActiveRecord::Base.transaction do
 
   (25..36).each do |row|
     DataTransfer.create!(
+      data_transfer_group: dtg2,
       origin_worksheet_index: 0,
       destination_worksheet_index: 5,
-      origin_file: claims,
       origin_row: row,
       origin_col: 2,
       destination_row: row - 12,
@@ -80,9 +82,9 @@ ActiveRecord::Base.transaction do
 
   (48..59).each do |row|
     DataTransfer.create!(
+      data_transfer_group: dtg2,
       origin_worksheet_index: 0,
       destination_worksheet_index: 4,
-      origin_file: claims,
       origin_row: row,
       origin_col: 2,
       destination_row: row - 35,
@@ -91,11 +93,12 @@ ActiveRecord::Base.transaction do
   end
 
   # Rx
+  dtg3 = DataTransferGroup.create!(from_type: :column, to_type: :column, origin_file: claims)
   (11..22).each do |row|
     DataTransfer.create!(
+      data_transfer_group: dtg3,
       origin_worksheet_index: 0,
       destination_worksheet_index: 3,
-      origin_file: claims,
       origin_row: row,
       origin_col: 3,
       destination_row: row + 2,
@@ -105,9 +108,9 @@ ActiveRecord::Base.transaction do
 
   (25..36).each do |row|
     DataTransfer.create!(
+      data_transfer_group: dtg3,
       origin_worksheet_index: 0,
       destination_worksheet_index: 5,
-      origin_file: claims,
       origin_row: row,
       origin_col: 3,
       destination_row: row - 12,
@@ -117,9 +120,9 @@ ActiveRecord::Base.transaction do
 
   (48..59).each do |row|
     DataTransfer.create!(
+      data_transfer_group: dtg3,
       origin_worksheet_index: 0,
       destination_worksheet_index: 4,
-      origin_file: claims,
       origin_row: row,
       origin_col: 3,
       destination_row: row - 35,
@@ -138,23 +141,25 @@ ActiveRecord::Base.transaction do
   origin1 = OriginFile.create!(name: "Origin 1", position: 0, template: template2)
   origin2 = OriginFile.create!(name: "Origin 2", position: 1, template: template2)
 
-  (10..12).each do |row|
+  dtg4 = DataTransferGroup.create!(from_type: :row, to_type: :column, origin_file: origin1)
+  (3..5).each do |col|
     DataTransfer.create!(
+      data_transfer_group: dtg4,
       origin_worksheet_index: 0,
       destination_worksheet_index: 0,
-      origin_file: origin1,
-      origin_row: row,
-      origin_col: 3,
-      destination_row: row - 8,
+      origin_row: 10,
+      origin_col: col,
+      destination_row: col - 1,
       destination_col: 1
     )
   end
 
+  dtg5 = DataTransferGroup.create!(from_type: :row, to_type: :column, origin_file: origin2)
   (7..9).each do |row|
     DataTransfer.create!(
+      data_transfer_group: dtg5,
       origin_worksheet_index: 0,
       destination_worksheet_index: 0,
-      origin_file: origin2,
       origin_row: row,
       origin_col: 1,
       destination_row: row - 5,
@@ -162,10 +167,12 @@ ActiveRecord::Base.transaction do
     )
   end
 
+
+  dtg6 = DataTransferGroup.create!(from_type: :single, to_type: :single, origin_file: origin2)
   DataTransfer.create!(
+    data_transfer_group: dtg6,
     origin_worksheet_index: 0,
     destination_worksheet_index: 0,
-    origin_file: origin2,
     origin_row: 12,
     origin_col: 3,
     destination_row: 5,
