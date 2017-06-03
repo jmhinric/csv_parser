@@ -12,18 +12,12 @@
 
 class OriginFile < ApplicationRecord
   belongs_to :template
-  has_many :data_transfers
-
-  def transfers_by_column_and_destination_worksheet
-    data_transfers
-      .group_by(&:origin_col).values.map do |data_transfers|
-        data_transfers.group_by(&:destination_worksheet_index).values
-        .map { |data_transfers| DataTransfersPresenter.transfers(data_transfers) }
-      end
-  end
+  has_many :data_transfers, validate: true
+  has_many :single_data_transfers, validate: true, class_name: 'SingleDataTransfer'
+  has_many :range_data_transfers, validate: true, class_name: 'RangeDataTransfer'
 
   def transfers_by_destination_worksheet
-    data_transfers.group_by(&:destination_worksheet_index)
+    data_transfers.flat_map(&:cells).group_by(&:destination_worksheet_index)
   end
 
   def param_name

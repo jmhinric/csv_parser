@@ -34,8 +34,8 @@ RSpec.describe TemplatesController, type: :controller do
 
     subject { post :create, template_params }
 
-    it 'redirects to user_path' do
-      expect(subject).to redirect_to(user_path(user))
+    it 'redirects to templates_path' do
+      expect(subject).to redirect_to(templates_path)
     end
 
     it 'creates a template with proper attributes' do

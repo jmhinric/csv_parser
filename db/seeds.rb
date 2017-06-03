@@ -10,8 +10,12 @@
 ActiveRecord::Base.transaction do
   user = User.create!(email: "john@evergreen.com", password: "password", password_confirmation: "password")
 
-  # Example 1
+  ##################################################################################################
+  ##################################################################################################
   # Cost Analysis
+  ##################################################################################################
+  ##################################################################################################
+
   template = Template.create!(
     name: "Cost Analysis Report",
     description: "Example 1: Cost analysis report based on Enrollment and Claims forms",
@@ -21,154 +25,85 @@ ActiveRecord::Base.transaction do
   enrollment = OriginFile.create!(name: "Enrollment", position: 0, template: template)
   claims = OriginFile.create!(name: "Claims", position: 1, template: template)
 
-  (12..23).each do |row|
-    DataTransfer.create!(
-      origin_worksheet_index: 0,
-      destination_worksheet_index: 3,
-      origin_file: enrollment,
-      origin_row: row,
-      origin_col: 2,
-      destination_row: row + 1,
-      destination_col: 7
-    )
+  # Enrollment
+  origin = OriginCellRange.create!(worksheet_index: 0, begin_value: 'C13', end_value: 'C24')
+  destination = DestinationCellRange.create!(worksheet_index: 3, begin_value: 'H14', end_value: 'H25')
+  RangeDataTransfer.create!(origin_file: enrollment, origin_cell_range: origin, destination_cell_range: destination)
 
-    DataTransfer.create!(
-      origin_worksheet_index: 0,
-      destination_worksheet_index: 4,
-      origin_file: enrollment,
-      origin_row: row,
-      origin_col: 8,
-      destination_row: row + 1,
-      destination_col: 7
-    )
+  origin = OriginCellRange.create!(worksheet_index: 0, begin_value: 'I13', end_value: 'I24')
+  destination = DestinationCellRange.create!(worksheet_index: 4, begin_value: 'H14', end_value: 'H25')
+  RangeDataTransfer.create!(origin_file: enrollment, origin_cell_range: origin, destination_cell_range: destination)
 
-    DataTransfer.create!(
-      origin_worksheet_index: 0,
-      destination_worksheet_index: 5,
-      origin_file: enrollment,
-      origin_row: row,
-      origin_col: 4,
-      destination_row: row + 1,
-      destination_col: 7
-    )
-  end
+  origin = OriginCellRange.create!(worksheet_index: 0, begin_value: 'E13', end_value: 'E24')
+  destination = DestinationCellRange.create!(worksheet_index: 5, begin_value: 'H14', end_value: 'H25')
+  RangeDataTransfer.create!(origin_file: enrollment, origin_cell_range: origin, destination_cell_range: destination)
+
 
   # Medical
-  (11..22).each do |row|
-    DataTransfer.create!(
-      origin_worksheet_index: 0,
-      destination_worksheet_index: 3,
-      origin_file: claims,
-      origin_row: row,
-      origin_col: 2,
-      destination_row: row + 2,
-      destination_col: 27
-    )
-  end
+  origin = OriginCellRange.create!(worksheet_index: 0, begin_value: 'C12', end_value: 'C23')
+  destination = DestinationCellRange.create!(worksheet_index: 3, begin_value: 'AB14', end_value: 'AB25')
+  RangeDataTransfer.create!(origin_file: claims, origin_cell_range: origin, destination_cell_range: destination)
 
-  (25..36).each do |row|
-    DataTransfer.create!(
-      origin_worksheet_index: 0,
-      destination_worksheet_index: 5,
-      origin_file: claims,
-      origin_row: row,
-      origin_col: 2,
-      destination_row: row - 12,
-      destination_col: 27
-    )
-  end
+  origin = OriginCellRange.create!(worksheet_index: 0, begin_value: 'C49', end_value: 'C60')
+  destination = DestinationCellRange.create!(worksheet_index: 4, begin_value: 'AB14', end_value: 'AB25')
+  RangeDataTransfer.create!(origin_file: claims, origin_cell_range: origin, destination_cell_range: destination)
 
-  (48..59).each do |row|
-    DataTransfer.create!(
-      origin_worksheet_index: 0,
-      destination_worksheet_index: 4,
-      origin_file: claims,
-      origin_row: row,
-      origin_col: 2,
-      destination_row: row - 35,
-      destination_col: 27
-    )
-  end
+  origin = OriginCellRange.create!(worksheet_index: 0, begin_value: 'C26', end_value: 'C37')
+  destination = DestinationCellRange.create!(worksheet_index: 5, begin_value: 'AB14', end_value: 'AB25')
+  RangeDataTransfer.create!(origin_file: claims, origin_cell_range: origin, destination_cell_range: destination)
+
 
   # Rx
-  (11..22).each do |row|
-    DataTransfer.create!(
-      origin_worksheet_index: 0,
-      destination_worksheet_index: 3,
-      origin_file: claims,
-      origin_row: row,
-      origin_col: 3,
-      destination_row: row + 2,
-      destination_col: 29
-    )
-  end
+  origin = OriginCellRange.create!(worksheet_index: 0, begin_value: 'D12', end_value: 'D23')
+  destination = DestinationCellRange.create!(worksheet_index: 3, begin_value: 'AD14', end_value: 'AD25')
+  RangeDataTransfer.create!(origin_file: claims, origin_cell_range: origin, destination_cell_range: destination)
 
-  (25..36).each do |row|
-    DataTransfer.create!(
-      origin_worksheet_index: 0,
-      destination_worksheet_index: 5,
-      origin_file: claims,
-      origin_row: row,
-      origin_col: 3,
-      destination_row: row - 12,
-      destination_col: 29
-    )
-  end
+  origin = OriginCellRange.create!(worksheet_index: 0, begin_value: 'D49', end_value: 'D60')
+  destination = DestinationCellRange.create!(worksheet_index: 4, begin_value: 'AD14', end_value: 'AD25')
+  RangeDataTransfer.create!(origin_file: claims, origin_cell_range: origin, destination_cell_range: destination)
 
-  (48..59).each do |row|
-    DataTransfer.create!(
-      origin_worksheet_index: 0,
-      destination_worksheet_index: 4,
-      origin_file: claims,
-      origin_row: row,
-      origin_col: 3,
-      destination_row: row - 35,
-      destination_col: 29
-    )
-  end
+  origin = OriginCellRange.create!(worksheet_index: 0, begin_value: 'D26', end_value: 'D37')
+  destination = DestinationCellRange.create!(worksheet_index: 5, begin_value: 'AD14', end_value: 'AD25')
+  RangeDataTransfer.create!(origin_file: claims, origin_cell_range: origin, destination_cell_range: destination)
 
 
+
+  ##################################################################################################
+  ##################################################################################################
   # Example 2
+  ##################################################################################################
+  ##################################################################################################
+
   template2 = Template.create!(
-    name: "Example 2",
-    description: "Example 2: Simple case of copying from two origin files to one destination file",
+    name: "Simple Example",
+    description: "Example 2: Simple case of copying from one origin file to one destination file",
     user: user
   )
 
   origin1 = OriginFile.create!(name: "Origin 1", position: 0, template: template2)
-  origin2 = OriginFile.create!(name: "Origin 2", position: 1, template: template2)
 
-  (10..12).each do |row|
-    DataTransfer.create!(
-      origin_worksheet_index: 0,
-      destination_worksheet_index: 0,
-      origin_file: origin1,
-      origin_row: row,
-      origin_col: 3,
-      destination_row: row - 8,
-      destination_col: 1
-    )
-  end
+  # Single
+  origin = OriginCellRange.create!(worksheet_index: 0, begin_value: 'A1')
+  destination = DestinationCellRange.create!(worksheet_index: 0, begin_value: 'D1')
+  SingleDataTransfer.create!(origin_file: origin1, origin_cell_range: origin, destination_cell_range: destination)
 
-  (7..9).each do |row|
-    DataTransfer.create!(
-      origin_worksheet_index: 0,
-      destination_worksheet_index: 0,
-      origin_file: origin2,
-      origin_row: row,
-      origin_col: 1,
-      destination_row: row - 5,
-      destination_col: 2
-    )
-  end
+  # Column to column
+  origin = OriginCellRange.create!(worksheet_index: 0, begin_value: 'B1', end_value: 'B3')
+  destination = DestinationCellRange.create!(worksheet_index: 0, begin_value: 'C2', end_value: 'C4')
+  RangeDataTransfer.create!(origin_file: origin1, origin_cell_range: origin, destination_cell_range: destination)
 
-  DataTransfer.create!(
-    origin_worksheet_index: 0,
-    destination_worksheet_index: 0,
-    origin_file: origin2,
-    origin_row: 12,
-    origin_col: 3,
-    destination_row: 5,
-    destination_col: 4
-  )
+  # Row to row
+  origin = OriginCellRange.create!(worksheet_index: 0, begin_value: 'D5', end_value: 'G5')
+  destination = DestinationCellRange.create!(worksheet_index: 1, begin_value: 'B2', end_value: 'E2')
+  RangeDataTransfer.create!(origin_file: origin1, origin_cell_range: origin, destination_cell_range: destination)
+
+  # Row to column
+  origin = OriginCellRange.create!(worksheet_index: 0, begin_value: 'D6', end_value: 'G6')
+  destination = DestinationCellRange.create!(worksheet_index: 1, begin_value: 'A14', end_value: 'A17')
+  RangeDataTransfer.create!(origin_file: origin1, origin_cell_range: origin, destination_cell_range: destination)
+
+  # Column to row
+  origin = OriginCellRange.create!(worksheet_index: 0, begin_value: 'B5', end_value: 'B7')
+  destination = DestinationCellRange.create!(worksheet_index: 1, begin_value: 'C3', end_value: 'E3')
+  RangeDataTransfer.create!(origin_file: origin1, origin_cell_range: origin, destination_cell_range: destination)
 end

@@ -2,32 +2,132 @@
 #
 # Table name: data_transfers
 #
-#  id                          :uuid             not null, primary key
-#  origin_row                  :integer          not null
-#  origin_col                  :integer          not null
-#  destination_row             :integer          not null
-#  destination_col             :integer          not null
-#  origin_worksheet_index      :integer          default(0), not null
-#  destination_worksheet_index :integer          not null
-#  origin_file_id              :uuid
-#  created_at                  :datetime         not null
-#  updated_at                  :datetime         not null
+#  id             :uuid             not null, primary key
+#  origin_file_id :uuid
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  type           :string
 #
 
 class DataTransfersController < ApplicationController
 
   before_action :authenticate_user!
+  before_action :load_template, only: [:index, :new, :create]
+  before_action :load_origin_file, only: [:new, :create]
+  before_action :load_data_transfer, only: :create
+
   skip_before_filter :verify_authenticity_token
 
+  attr_reader :template, :origin_file, :data_transfer
+
+  # TODO: implement AUTHORIZATION
+  # TODO: refactor to use jbuilder
   def index
-    # TODO: implement AUTHORIZATION
-    @template ||= Template.find(template_params[:id])
+    render(component: 'DataTransferIndex', props: {
+      template: React.camelize_props(template.as_json(only: [:id, :name, :description])),
+      originFiles: React.camelize_props(origin_files_as_json(template.origin_files)),
+      notice: flash[:notice],
+      alert: flash[:alert]
+    })
+  end
+
+  # TODO: implement AUTHORIZATION
+  def new
+    render(
+      component: 'DataTransferNew',
+      props: {
+        template: template,
+        originFile: origin_file,
+        notice: flash[:notice],
+        alert: flash[:alert]
+      }
+    )
+  end
+
+  def create
+    origin_file.data_transfers << data_transfer
+    if origin_file.valid? && data_transfer.valid?
+      origin_file.save!
+      flash[:notice] = "Successfully saved!"
+    else
+      flash[:alert] = "The data transfer could not be saved. #{data_transfer.errors.messages}"
+    end
+
+    redirect_to data_transfers_path(template)
   end
 
   private
 
-  def template_params
-    params.require(:id)
-    params.permit(:id)
+  def resource_params
+    params.permit(
+      :id,
+      :origin_file_id,
+      data_transfer: [
+        :type,
+        :origin_worksheet_index,
+        :origin_begin_value,
+        :origin_end_value,
+        :destination_worksheet_index,
+        :destination_begin_value,
+        :destination_end_value
+      ]
+    )
+  end
+
+  def data_transfer_params
+    resource_params['data_transfer']
+  end
+
+  def load_template
+    @template ||= Template.find(resource_params[:id])
+  end
+
+  def load_origin_file
+    @origin_file ||= OriginFile.find(resource_params[:origin_file_id])
+  end
+
+  def load_data_transfer
+    @data_transfer ||= data_transfer_class.new(
+      origin_file: origin_file,
+      origin_cell_range: origin_cell_range,
+      destination_cell_range: destination_cell_range
+    )
+  end
+
+  def data_transfer_class
+    data_transfer_params['type'] == 'single' ? SingleDataTransfer : RangeDataTransfer
+  end
+
+  def origin_cell_range
+    OriginCellRange.new(
+      worksheet_index: data_transfer_params['origin_worksheet_index'],
+      begin_value: data_transfer_params['origin_begin_value'].upcase,
+      end_value: data_transfer_params['origin_end_value'].try(:upcase)
+    )
+  end
+
+  def destination_cell_range
+    DestinationCellRange.new(
+      worksheet_index: data_transfer_params['destination_worksheet_index'],
+      begin_value: data_transfer_params['destination_begin_value'].upcase,
+      end_value: data_transfer_params['destination_end_value'].try(:upcase)
+    )
+  end
+
+  def origin_files_as_json(origin_files)
+    origin_files.map do |origin_file|
+      {
+        id: origin_file.id,
+        name: origin_file.name,
+        data_transfers: origin_file.data_transfers.map do |data_transfer|
+          {
+            origin_cell_range: data_transfer.origin_cell_range
+              .as_json(only: [:worksheet_index, :begin_value, :end_value]),
+            destination_cell_range: data_transfer.destination_cell_range
+              .as_json(only: [:worksheet_index, :begin_value, :end_value])
+          }
+        end
+      }
+    end
   end
 end

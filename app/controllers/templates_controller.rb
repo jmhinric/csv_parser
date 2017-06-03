@@ -17,10 +17,17 @@ class TemplatesController < ApplicationController
   before_action :authenticate_user!
   skip_before_action :verify_authenticity_token
 
+  def index
+    @templates = current_user.templates.sort_by(&:created_at)
+  end
+
+  def show
+    @template = template
+  end
+
   def new
     render(component: 'TemplateNew', props: {
       template: Template.new,
-      userId: current_user.id,
       notice: flash[:notice],
       alert: flash[:alert]
     })
@@ -33,11 +40,7 @@ class TemplatesController < ApplicationController
       flash[:alert] = "Oops! Something went wrong.  Please contact support."
     end
 
-    redirect_to user_path(current_user)
-  end
-
-  def show
-    @template = template
+    redirect_to templates_path
   end
 
   def execute
@@ -63,10 +66,12 @@ class TemplatesController < ApplicationController
       end
     rescue Exceptions::MissingParamError => e
       flash[:alert] = e.message
-      redirect_to user_template_path(current_user, template)
+      redirect_to template_path(template)
     rescue => e
+      puts e.message
+      puts e.backtrace[0..10].join("\n")
       flash[:alert] = "Oops! Something went wrong.  Please contact support."
-      redirect_to user_template_path(current_user, template)
+      redirect_to template_path(template)
     end
   end
 

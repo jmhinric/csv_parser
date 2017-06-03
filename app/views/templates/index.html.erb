@@ -1,11 +1,14 @@
-<main id="user-show" class="centered-container grid-paper-background">
+<main id="user-show" class="grid-paper-background">
   <div class="wrapper-seventy">
     <section class="page-top-section">
       <h2>My Report Templates:</h2>
+      <div class="small-link u-paddingTop1pt5">
+        <%= link_to 'Add a Report Template', new_template_path %>
+      </div>
     </section>
 
     <section class="templates-wrapper">
-      <% @templates.each do |template| %>
+      <% @templates.sort_by(&:name).each do |template| %>
         <div class="user-template-group">
           <h3 class="underlined-link">
             <%= link_to template.name, template_path(template) %>
@@ -23,8 +26,5 @@
       <% end %>
     </section>
 
-    <div class="small-link">
-      <%= link_to 'Add a Report Template', new_template_path %>
-    </div>
   </div>
 </main>

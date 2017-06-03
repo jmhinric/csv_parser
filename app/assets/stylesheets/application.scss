@@ -11,11 +11,13 @@
  * file per style scope.
  *
  *= require suit
- *= require style
  *= require background
  *= require text
+ *= require icons
+ *= require alignment
  *= require padding
  *= require margin
+ *= require style
  *= require homepage
  *= require flash_notice
  *= require header
@@ -24,6 +26,7 @@
  *= require button
  *= require simple-form
  *= require responsive
+ *= require react-transitions
 
  *= require templates/show
  *= require users/show

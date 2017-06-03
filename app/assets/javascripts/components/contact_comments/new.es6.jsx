@@ -18,35 +18,31 @@ const ContactCommentNew = React.createClass({
     const { contactComment, notice, alert } = this.props;
 
     return (
-      <div className="simple-form">
+      <div className="simple-form u-paddingTop10 u-paddingBottom8">
         <FlashMessage notice={notice} alert={alert} />
 
         <h2>Contact Us</h2>
-        <div id="email-form-wrapper">
-          <div className="email-form">
-            <h3>We appreciate any questions, comments or inquiries</h3>
-            <form className="nifty_form">
-              <div className="field">
-                <div>Name:</div>
-                <ModelInput model={contactComment} attribute="name" />
-              </div>
-              <div className="field">
-                <div>Email:</div>
-                <ModelInput model={contactComment} attribute="email" type="email" />
-              </div>
-              <div className="field">
-                <div>Message:</div>
-                <textarea onChange={this.handleTextChange}></textarea>
-              </div>
-              <input
-                type="submit"
-                onClick={this.handleSubmit}
-                className="submit-button button"
-                value="Submit"
-              />
-            </form>
+        <h3>We appreciate any questions, comments or inquiries</h3>
+        <form>
+          <div className="field">
+            <div>Name:</div>
+            <ModelInput model={contactComment} attribute="name" />
           </div>
-        </div>
+          <div className="field">
+            <div>Email:</div>
+            <ModelInput model={contactComment} attribute="email" type="email" />
+          </div>
+          <div className="field">
+            <div>Message:</div>
+            <textarea onChange={this.handleTextChange}></textarea>
+          </div>
+          <input
+            type="submit"
+            onClick={this.handleSubmit}
+            className="submit-button button"
+            value="Submit"
+          />
+        </form>
       </div>
     );
   }
