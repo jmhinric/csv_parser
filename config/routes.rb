@@ -9,13 +9,9 @@ Rails.application.routes.draw do
 
   scope 'templates/:id' do
     resources :data_transfers, only: :index
-    resources :origin_files, only: :show do
+    resources :origin_files, only: [:new, :create] do
       resources :data_transfers, only: [:new, :create]
     end
-  end
-
-  resources :origin_files do
-    resources :data_transfers, only: []
   end
 
   get 'contact' => 'contact_comments#new'

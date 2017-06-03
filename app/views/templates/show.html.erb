@@ -20,7 +20,12 @@
         <%= form_tag("#{@template.id}/execute.xlsx", multipart: true) do %>
 
           <!-- OriginFile inputs -->
-          <h3 class="file-input-header">Origin files</h3>
+          <h3 class="file-input-header">
+            <span>Origin files</span>
+            <span class="u-marginLeft0pt5 plus-icon">
+              <%= link_to '+', new_origin_file_path %>
+            </span>
+          </h3>
           <div class="input-group">
             <% @template.origin_files.order(:position).each do |file| %>
               <div class="Grid template-execute">
