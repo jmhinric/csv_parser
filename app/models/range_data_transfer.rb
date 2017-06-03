@@ -10,4 +10,12 @@
 #
 
 class RangeDataTransfer < DataTransfer
+  validate :range_lengths_equal, if: -> { origin_cell_range && destination_cell_range }
+
+  private
+
+  def range_lengths_equal
+    unequal = origin_cell_range.length != destination_cell_range.length
+    errors.add(:destination_cell_range, 'length is unequal to origin_cell_range') if unequal
+  end
 end
