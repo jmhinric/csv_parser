@@ -1,7 +1,7 @@
 @import "colors";
 
 .plus-icon {
-  display: block;
+  display: inline-block;
   color: white;
   background-color: $base-green-light;
   font-size: 14px;
@@ -9,4 +9,8 @@
   width: 20px;
   height: 20px;
   cursor: pointer;
+
+  a {
+    color: white;
+  }
 }

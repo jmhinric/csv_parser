@@ -1,10 +1,12 @@
 <main id="user-show" class="grid-paper-background">
   <div class="wrapper-seventy">
     <section class="page-top-section">
-      <h2>My Report Templates:</h2>
-      <div class="small-link u-paddingTop1pt5">
-        <%= link_to 'Add a Report Template', new_template_path %>
-      </div>
+      <h2>
+        <span>My Report Templates</span>
+        <span class="u-marginLeft0pt25 plus-icon u-posCenter">
+          <%= link_to '+', new_template_path %>
+        </span>
+      </h2>
     </section>
 
     <section class="templates-wrapper">
