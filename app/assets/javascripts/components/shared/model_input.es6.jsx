@@ -1,11 +1,14 @@
+const { PropTypes } = React;
+
 const ModelInput = React.createClass({
   propTypes: {
-    model: React.PropTypes.object.isRequired,
-    attribute: React.PropTypes.string.isRequired,
-    classNames: React.PropTypes.string,
-    placeholder: React.PropTypes.string,
-    type: React.PropTypes.string,
-    style: React.PropTypes.object
+    model: PropTypes.object.isRequired,
+    attribute: PropTypes.string.isRequired,
+    classNames: PropTypes.string,
+    placeholder: PropTypes.string,
+    type: PropTypes.string,
+    style: PropTypes.object,
+    disabled: PropTypes.bool
   },
 
   getDefaultProps() {
@@ -21,16 +24,27 @@ const ModelInput = React.createClass({
   },
 
   render() {
-    const { classNames, placeholder, type, style, required } = this.props;
+    const {
+      classNames,
+      placeholder,
+      type,
+      style,
+      required,
+      model,
+      attribute,
+      disabled
+    } = this.props;
 
     return (
       <input
         style={style}
         type={type}
+        value={model[attribute]}
         required={required || false}
         placeholder={placeholder}
         className={classNames}
         onChange={this.handleChange}
+        disabled={disabled}
       />
     );
   }

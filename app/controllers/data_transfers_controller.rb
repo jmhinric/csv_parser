@@ -31,26 +31,15 @@ class DataTransfersController < ApplicationController
     })
   end
 
-  # TODO: implement AUTHORIZATION
-  def new
-    render(
-      component: 'DataTransferNew',
-      props: {
-        template: template,
-        originFile: origin_file,
-        notice: flash[:notice],
-        alert: flash[:alert]
-      }
-    )
-  end
-
   def create
-    origin_file.data_transfers << data_transfer
-    if origin_file.valid? && data_transfer.valid?
-      origin_file.save!
-      flash[:notice] = "Successfully saved!"
-    else
-      flash[:alert] = "The data transfer could not be saved. #{data_transfer.errors.messages}"
+    ActiveRecord::Base.transaction do
+      origin_file.data_transfers << data_transfer
+      if origin_file.valid? && data_transfer.valid?
+        origin_file.save!
+        flash[:notice] = "Successfully saved!"
+      else
+        flash[:alert] = "The data transfer could not be saved. #{data_transfer.errors.messages}"
+      end
     end
 
     redirect_to data_transfers_path(template)
@@ -64,12 +53,8 @@ class DataTransfersController < ApplicationController
       :origin_file_id,
       data_transfer: [
         :type,
-        :origin_worksheet_index,
-        :origin_begin_value,
-        :origin_end_value,
-        :destination_worksheet_index,
-        :destination_begin_value,
-        :destination_end_value
+        origin_cell_range: [:worksheet_index, :begin_value, :end_value],
+        destination_cell_range: [:worksheet_index, :begin_value, :end_value]
       ]
     )
   end
@@ -87,31 +72,26 @@ class DataTransfersController < ApplicationController
   end
 
   def load_data_transfer
-    @data_transfer ||= data_transfer_class.new(
+    @data_transfer ||= DataTransfer.new(
       origin_file: origin_file,
       origin_cell_range: origin_cell_range,
-      destination_cell_range: destination_cell_range
+      destination_cell_range: destination_cell_range,
+      type: "#{data_transfer_params['type'].capitalize}DataTransfer"
     )
-  end
-
-  def data_transfer_class
-    data_transfer_params['type'] == 'single' ? SingleDataTransfer : RangeDataTransfer
   end
 
   def origin_cell_range
-    OriginCellRange.new(
-      worksheet_index: data_transfer_params['origin_worksheet_index'],
-      begin_value: data_transfer_params['origin_begin_value'].upcase,
-      end_value: data_transfer_params['origin_end_value'].try(:upcase)
-    )
+    ocr = OriginCellRange.new(data_transfer_params['origin_cell_range'])
+    ocr.begin_value.upcase!
+    ocr.end_value.try(:upcase!)
+    ocr
   end
 
   def destination_cell_range
-    DestinationCellRange.new(
-      worksheet_index: data_transfer_params['destination_worksheet_index'],
-      begin_value: data_transfer_params['destination_begin_value'].upcase,
-      end_value: data_transfer_params['destination_end_value'].try(:upcase)
-    )
+    dcr = DestinationCellRange.new(data_transfer_params['destination_cell_range'])
+    dcr.begin_value.upcase!
+    dcr.end_value.try(:upcase!)
+    dcr
   end
 
   def origin_files_as_json(origin_files)
@@ -121,6 +101,7 @@ class DataTransfersController < ApplicationController
         name: origin_file.name,
         data_transfers: origin_file.data_transfers.map do |data_transfer|
           {
+            id: data_transfer.id,
             origin_cell_range: data_transfer.origin_cell_range
               .as_json(only: [:worksheet_index, :begin_value, :end_value]),
             destination_cell_range: data_transfer.destination_cell_range

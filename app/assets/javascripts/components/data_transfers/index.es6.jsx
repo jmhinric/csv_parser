@@ -36,7 +36,13 @@ const DataTransferIndex = React.createClass({
 
             {
               originFiles.map((originFile) => {
-                return <DataTransferTable originFile={originFile} template={template} />
+                return (
+                  <DataTransferTable
+                    key={originFile.id}
+                    originFile={originFile}
+                    template={template}
+                  />
+                );
               })
             }
           </section>
