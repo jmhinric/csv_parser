@@ -31,3 +31,15 @@ $dark-gray: rgb(150, 150, 150);
 $light-gray: rgb(173, 173, 173);
 $lighter-gray: rgb(203, 203, 203);
 $lightest-gray: rgb(233, 233, 233);
+
+.light-gray-background {
+  background-color: $light-gray;
+}
+
+.lighter-gray-background {
+  background-color: $lighter-gray;
+}
+
+.lightest-gray-background {
+  background-color: $lightest-gray;
+}
