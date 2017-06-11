@@ -1,4 +1,4 @@
-const OriginFileNew = React.createClass({
+const OriginFileForm = React.createClass({
   propTypes: {
     template: React.PropTypes.object.isRequired,
     originFile: React.PropTypes.object.isRequired,
@@ -7,9 +7,20 @@ const OriginFileNew = React.createClass({
   },
 
   handleSubmit(e) {
-    const { template, originFile } = this.props;
     e.preventDefault();
-    $.post(`/templates/${template.id}/origin_files`, { origin_file: originFile })
+    const { template, originFile } = this.props;
+    const baseRoute = `/templates/${template.id}/origin_files`;
+
+    if (originFile.id) {
+      $.ajax({
+        type: "PATCH",
+        url: `${baseRoute}/${originFile.id}`,
+        data: { origin_file: originFile }
+      })
+    }
+    else {
+      $.post(baseRoute, { origin_file: originFile });
+    }
   },
 
   render() {
@@ -37,7 +48,7 @@ const OriginFileNew = React.createClass({
                 type="submit"
                 onClick={this.handleSubmit}
                 className="submit-button button"
-                value="Create"
+                value={`${originFile.id ? 'Save' : 'Create'}`}
               />
             </form>
           </div>

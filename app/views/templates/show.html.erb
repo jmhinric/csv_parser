@@ -29,8 +29,9 @@
           <div class="input-group">
             <% @template.origin_files.order(:position).each do |file| %>
               <div class="Grid template-execute">
-                <div class="Grid-cell u-size1of2">
-                  <%= label_tag file.param_name, "#{file.name}" %>
+                <div class="Grid-cell u-size1of2 u-paddingRight0pt5" title="Click to edit">
+                  <%= link_to file.name, edit_template_origin_file_path(@template, file), class: 'underlined-link' %>
+                  <%# label_tag file.param_name, "#{file.name}" %>
                 </div>
                 <div class="Grid-cell u-size1of2">
                   <%= file_field_tag file.param_name, { required: true } %>
