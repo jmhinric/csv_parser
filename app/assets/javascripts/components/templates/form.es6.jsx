@@ -1,4 +1,4 @@
-const TemplateNew = React.createClass({
+const TemplateForm = React.createClass({
   propTypes: {
     template: React.PropTypes.object.isRequired,
     notice: React.PropTypes.string,
@@ -11,13 +11,30 @@ const TemplateNew = React.createClass({
     template.description = description || '';
   },
 
+  getInitialState() {
+    return { description: this.props.template.description || '' };
+  },
+
   handleTextChange(e) {
     this.props.template.description = e.target.value;
+    this.setState({ description: e.target.value });
   },
 
   handleSubmit(e) {
     e.preventDefault();
-    $.post('/templates', { template: this.props.template })
+    const { template } = this.props;
+    const baseRoute = '/templates';
+
+    if (template.id) {
+      $.ajax({
+        type: "PATCH",
+        url: `${baseRoute}/${template.id}`,
+        data: { template: template }
+      })
+    }
+    else {
+      $.post(baseRoute, { template: template });
+    }
   },
 
   render() {
@@ -34,7 +51,7 @@ const TemplateNew = React.createClass({
           <div className="simple-form u-paddingTop10 u-paddingBottom8" style={{"height": "800px"}}>
             <FlashMessage notice={notice} alert={alert} />
 
-            <h2>New Report Template</h2>
+            <h2>{`${template.id ? '' : 'New '}Report Template:`}</h2>
             <form>
               <div className="field">
                 <div>Name</div>
@@ -42,14 +59,14 @@ const TemplateNew = React.createClass({
               </div>
               <div className="field">
                 <div>Description</div>
-                <textarea onChange={this.handleTextChange}></textarea>
+                <textarea value={this.state.description} onChange={this.handleTextChange}></textarea>
               </div>
 
               <input
                 type="submit"
                 onClick={this.handleSubmit}
                 className="submit-button button"
-                value="Create"
+                value={`${template.id ? 'Save' : 'Create'}`}
               />
             </form>
           </div>
