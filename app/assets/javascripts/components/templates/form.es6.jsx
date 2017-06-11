@@ -37,6 +37,16 @@ const TemplateForm = React.createClass({
     }
   },
 
+  handleDelete() {
+    const { template } = this.props;
+    if (confirm("Are you sure you want to delete this template and all of its origin files and data transfers?") == true) {
+      $.ajax({
+        type: 'DELETE',
+        url: `/templates/${template.id}`
+      });
+    }
+  },
+
   render() {
     const { template, notice, alert } = this.props;
 
@@ -60,6 +70,11 @@ const TemplateForm = React.createClass({
               <div className="field">
                 <div>Description</div>
                 <textarea value={this.state.description} onChange={this.handleTextChange}></textarea>
+                { template.id &&
+                  <div onClick={this.handleDelete} className="small-link u-marginTop0pt5">
+                    Delete this template
+                  </div>
+                }
               </div>
 
               <input

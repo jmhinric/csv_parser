@@ -10,6 +10,7 @@
 #  updated_at  :datetime         not null
 #
 
+# TODO: implement AUTHORIZATION
 class TemplatesController < ApplicationController
   include Exceptions
 
@@ -59,6 +60,15 @@ class TemplatesController < ApplicationController
     end
 
     redirect_to template_path(template)
+  end
+
+  def destroy
+    if template.destroy!
+      flash[:notice] = "Successfully deleted!"
+    else
+      flash[:alert] = "The template could not be deleted. #{template.errors.messages}"
+    end
+    redirect_to templates_path
   end
 
   def execute
