@@ -12,7 +12,7 @@
 
 class Template < ApplicationRecord
   belongs_to :user
-  has_many :origin_files
+  has_many :origin_files, dependent: :destroy
 
   def filename
     name.downcase.gsub(' ', '_')

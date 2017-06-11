@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root to: 'welcome#index'
 
-  resources :templates, only: [:index, :new, :create, :show] do
+  resources :templates do
     post 'execute', on: :member
     resources :data_transfers, only: [:index, :destroy]
     resources :origin_files, only: [:new, :create, :edit, :update, :destroy] do

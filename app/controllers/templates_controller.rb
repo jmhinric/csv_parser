@@ -10,6 +10,7 @@
 #  updated_at  :datetime         not null
 #
 
+# TODO: implement AUTHORIZATION
 class TemplatesController < ApplicationController
   include Exceptions
 
@@ -26,7 +27,7 @@ class TemplatesController < ApplicationController
   end
 
   def new
-    render(component: 'TemplateNew', props: {
+    render(component: 'TemplateForm', props: {
       template: Template.new,
       notice: flash[:notice],
       alert: flash[:alert]
@@ -35,11 +36,38 @@ class TemplatesController < ApplicationController
 
   def create
     begin
-      @template = current_user.templates.create(new_template_params)
+      @template = current_user.templates.create(new_update_template_params)
     rescue => e
       flash[:alert] = "Oops! Something went wrong.  Please contact support."
     end
 
+    redirect_to templates_path
+  end
+
+  def edit
+    render(component: 'TemplateForm', props: {
+      template: template,
+      notice: flash[:notice],
+      alert: flash[:alert]
+    })
+  end
+
+  def update
+    if template.update!(new_update_template_params.slice(:name, :description))
+      flash[:notice] = "Successfully updated!"
+    else
+      flash[:alert] = "The template could not be updated. #{template.errors.messages}"
+    end
+
+    redirect_to template_path(template)
+  end
+
+  def destroy
+    if template.destroy!
+      flash[:notice] = "Successfully deleted!"
+    else
+      flash[:alert] = "The template could not be deleted. #{template.errors.messages}"
+    end
     redirect_to templates_path
   end
 
@@ -92,7 +120,7 @@ class TemplatesController < ApplicationController
     params.permit(:id, :user_id)
   end
 
-  def new_template_params
+  def new_update_template_params
     params.require(:template).permit(:name, :description)
   end
 

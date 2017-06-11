@@ -9,6 +9,7 @@
 #  type           :string
 #
 
+# TODO: implement AUTHORIZATION
 class DataTransfersController < ApplicationController
 
   before_action :authenticate_user!
@@ -21,7 +22,6 @@ class DataTransfersController < ApplicationController
 
   attr_reader :template, :origin_file, :data_transfer
 
-  # TODO: implement AUTHORIZATION
   # TODO: refactor to use jbuilder
   def index
     render(component: 'DataTransferIndex', props: {
@@ -32,7 +32,6 @@ class DataTransfersController < ApplicationController
     })
   end
 
-  # TODO: implement AUTHORIZATION
   def create
     ActiveRecord::Base.transaction do
       origin_file.data_transfers << data_transfer
@@ -47,7 +46,6 @@ class DataTransfersController < ApplicationController
     redirect_to template_data_transfers_path(template)
   end
 
-  # TODO: implement AUTHORIZATION
   def destroy
     if data_transfer.destroy!
       flash[:notice] = "Successfully deleted!"
