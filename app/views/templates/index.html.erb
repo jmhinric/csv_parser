@@ -1,4 +1,5 @@
 <main id="user-show" class="grid-paper-background">
+  <%= render "shared/flash_alert_message" %>
   <div class="wrapper-seventy">
     <section class="page-top-section">
       <h2>
@@ -22,7 +23,7 @@
       <% if @templates.count == 0 %>
         <h3>
           <em>
-            You don't have any report templates yet.  Please <%= link_to "contact us", contact_path %> for inquiries.
+            You don't have any report templates yet.
           </em>
         </h3>
       <% end %>
