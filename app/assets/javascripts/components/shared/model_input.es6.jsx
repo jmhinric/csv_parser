@@ -18,9 +18,15 @@ const ModelInput = React.createClass({
     };
   },
 
+  getInitialState() {
+    const { model, attribute } = this.props;
+    return { value: model[attribute] };
+  },
+
   handleChange(e) {
     const { model, attribute } = this.props;
     model[attribute] = e.target.value;
+    this.setState({ value: e.target.value });
   },
 
   render() {
@@ -39,7 +45,7 @@ const ModelInput = React.createClass({
       <input
         style={style}
         type={type}
-        value={model[attribute]}
+        value={this.state.value}
         required={required || false}
         placeholder={placeholder}
         className={classNames}

@@ -2,8 +2,10 @@
   <%= render "shared/flash_alert_message" %>
 
   <div class="wrapper-seventy">
-    <div class="small-link u-paddingTop5">
-      <%= link_to 'Back to My Report Templates', templates_path %>
+    <div class="u-paddingTop5">
+      <a class="small-link" href=<%= templates_path %>>
+        Back to My Report Templates
+      </a>
     </div>
 
     <section class="template-info">
@@ -11,9 +13,9 @@
       <div class="template-header">
         <h2><%= @template.name %></h2>
         <p><%= @template.description %></p>
-        <div class="small-link">
-          <%= link_to 'Show data transfer details', template_data_transfers_path(@template.id) %>
-        </div>
+        <a class="small-link" href=<%= template_data_transfers_path(@template.id) %>>
+          Show data transfer details
+        </a>
       </div>
 
       <div class="Grid form-container">
@@ -29,10 +31,10 @@
           <div class="input-group">
             <% @template.origin_files.order(:position).each do |file| %>
               <div class="Grid template-execute">
-                <div class="Grid-cell u-size1of2">
-                  <%= label_tag file.param_name, "#{file.name}" %>
+                <div class="Grid-cell u-size1of2 u-paddingRight0pt5" title="Click to edit">
+                  <%= link_to file.name, edit_template_origin_file_path(@template, file), class: 'underlined-link' %>
                 </div>
-                <div class="Grid-cell u-size1of2">
+                <div class="Grid-cell u-size1of2 pointer">
                   <%= file_field_tag file.param_name, { required: true } %>
                 </div>
               </div>
