@@ -20,9 +20,9 @@ const DataTransferIndex = React.createClass({
 
     return (
       <main id="template-show" className="grid-paper-background">
+        <FlashMessage notice={notice} alert={alert} />
         <div className="wrapper-seventy">
           <BackNav template={template} />
-          <FlashMessage notice={notice} alert={alert} />
 
           <section className="template-info">
             <div className="template-header">

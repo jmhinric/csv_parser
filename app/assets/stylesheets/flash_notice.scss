@@ -2,7 +2,7 @@
 
 .flash-message-wrapper {
   position: absolute;
-  top: 100px;
+  top: 45px;
   width: 100%;
 }
 
@@ -25,11 +25,11 @@
 .success {
   color: white;
   background-color: $success-green;
-  border: 1px solid grey;
+  border: 3px solid white;
 }
 
 .error, #error_explanation {
   color: white;
   background-color: $error-red;
-  border: 1px solid;
+  border: 3px solid white;
 }

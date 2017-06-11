@@ -5,12 +5,6 @@ const TemplateForm = React.createClass({
     alert: React.PropTypes.string
   },
 
-  componentWillMount() {
-    let { template, template: { name, description } } = this.props;
-    template.name = name || '';
-    template.description = description || '';
-  },
-
   getInitialState() {
     return { description: this.props.template.description || '' };
   },
@@ -53,14 +47,13 @@ const TemplateForm = React.createClass({
     // TODO remove 800px styling once background image styling has been fixed.
     return (
       <div className="grid-paper-background">
+        <FlashMessage notice={notice} alert={alert} />
         <div className="wrapper-seventy">
           <div className="u-paddingTop5">
             <a href={`/templates`} className="small-link">Back to My Report Templates</a>
           </div>
 
           <div className="simple-form u-paddingTop10 u-paddingBottom8" style={{"height": "800px"}}>
-            <FlashMessage notice={notice} alert={alert} />
-
             <h2>{`${template.id ? '' : 'New '}Report Template:`}</h2>
             <form>
               <div className="field">
