@@ -9,8 +9,17 @@
   width: 20px;
   height: 20px;
   cursor: pointer;
+  color: white;
+}
 
-  a {
-    color: white;
-  }
+.x-icon {
+  background-color: $error-red;
+  width:18px;
+  height:18px;
+  border-radius:9px;
+  font-size:14px;
+  line-height:18px;
+  text-align:center;
+  color: white;
+  cursor: pointer;
 }

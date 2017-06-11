@@ -5,10 +5,7 @@ Rails.application.routes.draw do
 
   resources :templates, only: [:index, :new, :create, :show] do
     post 'execute', on: :member
-  end
-
-  scope 'templates/:id' do
-    resources :data_transfers, only: :index
+    resources :data_transfers, only: [:index, :destroy]
     resources :origin_files, only: [:new, :create] do
       resources :data_transfers, only: [:new, :create]
     end

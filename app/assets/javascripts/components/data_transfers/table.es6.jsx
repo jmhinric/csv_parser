@@ -1,8 +1,18 @@
 const { PropTypes } = React;
 
-const DisplayRow = ({ dataTransfer, classNames }) => {
+const DisplayRow = ({ dataTransfer, classNames, templateId }) => {
   const baseClassNames = "Grid-cell u-size1of8 u-paddingTopBottom1 u-paddingLeft2";
   const classes = `${baseClassNames} ${classNames}`;
+
+  const handleDelete = () => {
+    if (confirm("Are you sure you want to delete this data transfer?") == true) {
+      $.ajax({
+        url: `/templates/${templateId}/data_transfers/${dataTransfer.id}`,
+        type: 'DELETE'
+      });
+    }
+  };
+
   return (
     <div key={`${dataTransfer.id}`} className="Grid">
       <div className="Grid-cell u-size1of8"></div>
@@ -24,7 +34,9 @@ const DisplayRow = ({ dataTransfer, classNames }) => {
       <div className={`${classes} borderRight`}>
         {dataTransfer.destinationCellRange.endValue || '-'}
       </div>
-      <div className="Grid-cell u-size1of8"></div>
+      <div className="Grid-cell u-size1of8">
+        <div onClick={handleDelete} className="u-marginTop1pt5 u-marginLeft0pt5 x-icon">x</div>
+      </div>
     </div>
   );
 };
@@ -56,7 +68,7 @@ const DataTransferTable = React.createClass({
     const { addingTransfer, editingDataTransferId, newTransfer } = this.state;
     let transfers = originFile.dataTransfers;
     const headerClassNames = "Grid-cell u-size1of8 light-gray-background" +
-      " u-paddingTopBottom1 u-paddingLeft2";
+      " u-paddingTopBottom1 u-paddingLeft2" + ` ${transfers.length === 0 && !addingTransfer && 'borderBottom'}`;
 
     return (
       <div className="u-paddingTop3 u-paddingBottom5">
@@ -98,6 +110,7 @@ const DataTransferTable = React.createClass({
                   key={`${dataTransfer.id}`}
                   dataTransfer={dataTransfer}
                   classNames={classNames}
+                  templateId={template.id}
                 />
               );
             })
@@ -113,7 +126,8 @@ const DataTransferTable = React.createClass({
                 key="new"
                 dataTransfer={newTransfer}
                 classNames={`borderBottom ${transfers.length % 2 !== 0 && 'lighter-gray-background'}`}
-                saveRoute={`/templates/${template.id}/origin_files/${originFile.id}/data_transfers`}
+                templateId={template.id}
+                originFileId={originFile.id}
               />
             }
           </React.addons.CSSTransitionGroup>
