@@ -12,9 +12,10 @@
 class DataTransfersController < ApplicationController
 
   before_action :authenticate_user!
-  before_action :load_template, only: [:index, :new, :create]
+  before_action :load_template, only: [:index, :new, :create, :destroy]
   before_action :load_origin_file, only: [:new, :create]
-  before_action :load_data_transfer, only: :create
+  before_action :load_new_data_transfer, only: :create
+  before_action :load_data_transfer, only: :destroy
 
   skip_before_filter :verify_authenticity_token
 
@@ -31,6 +32,7 @@ class DataTransfersController < ApplicationController
     })
   end
 
+  # TODO: implement AUTHORIZATION
   def create
     ActiveRecord::Base.transaction do
       origin_file.data_transfers << data_transfer
@@ -42,16 +44,27 @@ class DataTransfersController < ApplicationController
       end
     end
 
-    redirect_to data_transfers_path(template)
+    redirect_to template_data_transfers_path(template)
+  end
+
+  # TODO: implement AUTHORIZATION
+  def destroy
+    if data_transfer.destroy!
+      flash[:notice] = "Successfully deleted!"
+    else
+      flash[:alert] = "The data transfer could not be deleted. #{data_transfer.errors.messages}"
+    end
+    redirect_to template_data_transfers_path(template)
   end
 
   private
 
   def resource_params
     params.permit(
-      :id,
+      :template_id,
       :origin_file_id,
       data_transfer: [
+        :id,
         :type,
         origin_cell_range: [:worksheet_index, :begin_value, :end_value],
         destination_cell_range: [:worksheet_index, :begin_value, :end_value]
@@ -64,7 +77,7 @@ class DataTransfersController < ApplicationController
   end
 
   def load_template
-    @template ||= Template.find(resource_params[:id])
+    @template ||= Template.find(resource_params[:template_id])
   end
 
   def load_origin_file
@@ -72,6 +85,10 @@ class DataTransfersController < ApplicationController
   end
 
   def load_data_transfer
+    @data_transfer ||= DataTransfer.find(params.permit(:id)[:id])
+  end
+
+  def load_new_data_transfer
     @data_transfer ||= DataTransfer.new(
       origin_file: origin_file,
       origin_cell_range: origin_cell_range,

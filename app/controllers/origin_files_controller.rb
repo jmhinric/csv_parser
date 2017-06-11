@@ -24,7 +24,7 @@ class OriginFilesController < ApplicationController
   private
 
   def load_template
-    @template = Template.find(params.permit(:id)[:id])
+    @template = Template.find(params.permit(:template_id)[:template_id])
   end
 
   def new_origin_file_params

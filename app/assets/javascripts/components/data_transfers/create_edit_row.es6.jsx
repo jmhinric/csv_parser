@@ -4,7 +4,8 @@ const DataTransferCreateEditRow = React.createClass({
   propTypes: {
     dataTransfer: PropTypes.object.isRequired,
     classNames: PropTypes.string.isRequired,
-    saveRoute: PropTypes.string.isRequired
+    templateId: PropTypes.string.isRequired,
+    originFileId: PropTypes.string.isRequired
   },
 
   getInitialState() {
@@ -42,7 +43,12 @@ const DataTransferCreateEditRow = React.createClass({
 
   handleSubmit(e) {
     e.preventDefault();
-    const { saveRoute, dataTransfer: { type, originCellRange, destinationCellRange } } = this.props;
+    const {
+      templateId,
+      originFileId,
+      dataTransfer: { type, originCellRange, destinationCellRange }
+    } = this.props;
+    const saveRoute = `/templates/${templateId}/origin_files/${originFileId}/data_transfers`;
     const dataTransferParam = {
       type: type,
       origin_cell_range: {
