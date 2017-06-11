@@ -5,6 +5,12 @@ const TemplateNew = React.createClass({
     alert: React.PropTypes.string
   },
 
+  componentWillMount() {
+    let { template, template: { name, description } } = this.props;
+    template.name = name || '';
+    template.description = description || '';
+  },
+
   handleTextChange(e) {
     this.props.template.description = e.target.value;
   },
@@ -21,8 +27,8 @@ const TemplateNew = React.createClass({
     return (
       <div className="grid-paper-background">
         <div className="wrapper-seventy">
-          <div className="u-paddingTop5 small-link">
-            <a href={`/templates`}>Back to My Report Templates</a>
+          <div className="u-paddingTop5">
+            <a href={`/templates`} className="small-link">Back to My Report Templates</a>
           </div>
 
           <div className="simple-form u-paddingTop10 u-paddingBottom8" style={{"height": "800px"}}>

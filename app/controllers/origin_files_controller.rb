@@ -1,7 +1,7 @@
 class OriginFilesController < ApplicationController
-  before_action :load_template, only: [:new, :create, :edit, :update]
+  before_action :load_template, only: [:new, :create, :edit, :update, :destroy]
   before_action :load_new_origin_file, only: :create
-  before_action :load_origin_file, only: [:edit, :update]
+  before_action :load_origin_file, only: [:edit, :update, :destroy]
 
   def new
     render(component: 'OriginFileForm', props: {
@@ -38,6 +38,16 @@ class OriginFilesController < ApplicationController
       flash[:alert] = "The origin file could not be updated. #{@origin_file.errors.messages}"
     end
 
+    redirect_to template_path(@template)
+  end
+
+  # TODO: implement AUTHORIZATION
+  def destroy
+    if @origin_file.destroy!
+      flash[:notice] = "Successfully deleted!"
+    else
+      flash[:alert] = "The origin file could not be deleted. #{@origin_file.errors.messages}"
+    end
     redirect_to template_path(@template)
   end
 

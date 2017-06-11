@@ -6,6 +6,11 @@ const OriginFileForm = React.createClass({
     alert: React.PropTypes.string
   },
 
+  componentWillMount() {
+    let { originFile, originFile: { name } } = this.props;
+    originFile.name = name || '';
+  },
+
   handleSubmit(e) {
     e.preventDefault();
     const { template, originFile } = this.props;
@@ -23,6 +28,16 @@ const OriginFileForm = React.createClass({
     }
   },
 
+  handleDelete() {
+    const { template, originFile } = this.props;
+    if (confirm("Are you sure you want to delete this origin file and all of its data transfers?") == true) {
+      $.ajax({
+        type: 'DELETE',
+        url: `/templates/${template.id}/origin_files/${originFile.id}`
+      });
+    }
+  },
+
   render() {
     const { template, originFile, notice, alert } = this.props;
 
@@ -30,18 +45,24 @@ const OriginFileForm = React.createClass({
     return (
       <div className="grid-paper-background">
         <div className="wrapper-seventy">
-          <div className="u-paddingTop5 small-link">
-            <a href={`/templates/${template.id}`}>Back</a>
+          <div className="u-paddingTop5">
+            <a href={`/templates/${template.id}`} className="small-link">Back</a>
           </div>
 
           <div className="simple-form u-paddingTop10 u-paddingBottom8" style={{"height": "800px"}}>
             <FlashMessage notice={notice} alert={alert} />
 
-            <h2>{`New Origin File for ${template.name}`}</h2>
+            <h2>{`Template: ${template.name}`}</h2>
+            <div className="centered" style={{ "fontSize": "1.3em", "fontWeight": "bold" }}>
+              {`${originFile.id ? '' : 'New '}Origin File:`}
+            </div>
             <form>
               <div className="field">
                 <div>Name</div>
-                <ModelInput model={originFile} attribute="name" />
+                <ModelInput key="new-edit" model={originFile} attribute="name" />
+                { originFile.id &&
+                  <div onClick={this.handleDelete} className="small-link u-marginTop0pt5">Delete</div>
+                }
               </div>
 
               <input

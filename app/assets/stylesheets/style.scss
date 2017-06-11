@@ -38,6 +38,10 @@ a:hover {
   cursor: pointer;
 }
 
+.pointer {
+  cursor: pointer;
+}
+
 .hidden {
   display: none;
 }
@@ -56,8 +60,8 @@ a:hover {
   @extend .u-paddingLeftRight0;
   width: 80%;
   margin: 0 auto;
+}
 
-  .centered {
-    text-align: center;
-  }
+.centered {
+  text-align: center;
 }

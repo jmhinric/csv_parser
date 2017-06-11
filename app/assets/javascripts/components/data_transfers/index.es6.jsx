@@ -1,8 +1,8 @@
 const { PropTypes } = React;
 
 const BackNav = ({ template }) => (
-  <div className="small-link u-paddingTop5 u-paddingBottom3">
-    <a href={`/templates/${template.id}`}>{`Back to ${template.name}`}</a>
+  <div className="u-paddingTop5 u-paddingBottom3">
+    <a href={`/templates/${template.id}`} className="small-link">{`Back to ${template.name}`}</a>
   </div>
 );
 

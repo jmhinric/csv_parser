@@ -12,9 +12,9 @@
 
 class OriginFile < ApplicationRecord
   belongs_to :template
-  has_many :data_transfers, validate: true
-  has_many :single_data_transfers, validate: true, class_name: 'SingleDataTransfer'
-  has_many :range_data_transfers, validate: true, class_name: 'RangeDataTransfer'
+  has_many :data_transfers, validate: true, dependent: :destroy
+  has_many :single_data_transfers, validate: true, class_name: 'SingleDataTransfer', dependent: :destroy
+  has_many :range_data_transfers, validate: true, class_name: 'RangeDataTransfer', dependent: :destroy
 
   def transfers_by_destination_worksheet
     data_transfers.flat_map(&:cells).group_by(&:destination_worksheet_index)
