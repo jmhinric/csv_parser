@@ -13,10 +13,10 @@
 class DataTransfersController < ApplicationController
 
   before_action :authenticate_user!
-  before_action :load_template, only: [:index, :new, :create, :destroy]
+  before_action :load_template, only: [:index, :new, :create, :update, :destroy]
   before_action :load_origin_file, only: [:new, :create]
   before_action :load_new_data_transfer, only: :create
-  before_action :load_data_transfer, only: :destroy
+  before_action :load_data_transfer, only: [:update, :destroy]
 
   skip_before_filter :verify_authenticity_token
 
@@ -46,6 +46,26 @@ class DataTransfersController < ApplicationController
     redirect_to template_data_transfers_path(template)
   end
 
+  def update
+    ocr = data_transfer.origin_cell_range
+    ocr.worksheet_index = origin_cell_range_param['worksheet_index']
+    ocr.begin_value = origin_cell_range_param['begin_value']
+    ocr.end_value = origin_cell_range_param['end_value']
+
+    dcr = data_transfer.destination_cell_range
+    dcr.worksheet_index = destination_cell_range_param['worksheet_index']
+    dcr.begin_value = destination_cell_range_param['begin_value']
+    dcr.end_value = destination_cell_range_param['end_value']
+
+    if (ocr.save! && dcr.save!)
+      flash[:notice] = "Successfully updated!"
+    else
+      flash[:alert] = "The data transfer could not be updated. #{data_transfer.errors.messages}"
+    end
+    redirect_to template_data_transfers_path(template)
+  end
+
+
   def destroy
     if data_transfer.destroy!
       flash[:notice] = "Successfully deleted!"
@@ -68,6 +88,14 @@ class DataTransfersController < ApplicationController
         destination_cell_range: [:worksheet_index, :begin_value, :end_value]
       ]
     )
+  end
+
+  def origin_cell_range_param
+    resource_params['data_transfer']['origin_cell_range']
+  end
+
+  def destination_cell_range_param
+    resource_params['data_transfer']['destination_cell_range']
   end
 
   def data_transfer_params
@@ -117,6 +145,7 @@ class DataTransfersController < ApplicationController
         data_transfers: origin_file.data_transfers.map do |data_transfer|
           {
             id: data_transfer.id,
+            type: data_transfer.transfer_type,
             origin_cell_range: data_transfer.origin_cell_range
               .as_json(only: [:worksheet_index, :begin_value, :end_value]),
             destination_cell_range: data_transfer.destination_cell_range

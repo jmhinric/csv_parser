@@ -12,6 +12,10 @@
 class RangeDataTransfer < DataTransfer
   validate :range_lengths_equal, if: -> { origin_cell_range && destination_cell_range }
 
+  def transfer_type
+    'range'
+  end
+
   private
 
   def range_lengths_equal

@@ -1,4 +1,4 @@
-<main id="template-show" class="grid-paper-background">
+<main>
   <%= render "shared/flash_alert_message" %>
 
   <div class="wrapper-seventy">
@@ -8,9 +8,8 @@
       </a>
     </div>
 
-    <section class="template-info">
-
-      <div class="template-header">
+    <section class="u-paddingTop10">
+      <div class="u-textCenter u-paddingBottom6">
         <h2 title="Click to edit">
           <%= link_to @template.name, edit_template_path(@template), class: 'underlined-link' %>
         </h2>
@@ -21,22 +20,26 @@
       </div>
 
       <div class="Grid form-container">
-        <%= form_tag("#{@template.id}/execute.xlsx", multipart: true) do %>
+        <%= form_tag(
+          "#{@template.id}/execute.xlsx",
+          multipart: true,
+          class: "margin-zero-auto") do
+        %>
 
           <!-- OriginFile inputs -->
-          <h3 class="file-input-header">
+          <h3 class="u-paddingBottom1 u-textCenter">
             <span>Origin files</span>
             <span class="u-marginLeft0pt5">
               <%= link_to '+', new_template_origin_file_path(@template), class: "plus-icon" %>
             </span>
           </h3>
-          <div class="input-group">
+          <div class="u-paddingBottom2pt5">
             <% @template.origin_files.order(:position).each do |file| %>
-              <div class="Grid template-execute">
+              <div class="Grid u-paddingBottom2pt5 u-textRight">
                 <div class="Grid-cell u-size1of2 u-paddingRight0pt5" title="Click to edit">
                   <%= link_to file.name, edit_template_origin_file_path(@template, file), class: 'underlined-link' %>
                 </div>
-                <div class="Grid-cell u-size1of2 pointer">
+                <div class="Grid-cell u-size1of2 cursor-pointer">
                   <%= file_field_tag file.param_name, { required: true } %>
                 </div>
               </div>
@@ -44,11 +47,9 @@
           </div>
 
           <!-- DestinationFile input -->
-          <h3 class="file-input-header">Destination file</h3>
-          <div class="input-group">
-            <div class="template-execute">
-              <div><%= file_field_tag @template.file_param_name %></div>
-            </div>
+          <h3 class="u-paddingBottom1 u-textCenter">Destination file</h3>
+          <div class="u-paddingBottom2pt5 u-textRight">
+            <div><%= file_field_tag @template.file_param_name %></div>
           </div>
 
           <%= submit_tag('Generate Report', class: 'submit button') %>

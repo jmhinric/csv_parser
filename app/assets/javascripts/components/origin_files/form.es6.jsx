@@ -36,9 +36,8 @@ const OriginFileForm = React.createClass({
   render() {
     const { template, originFile, notice, alert } = this.props;
 
-    // TODO remove 800px styling once background image styling has been fixed.
     return (
-      <div className="grid-paper-background">
+      <div>
         <FlashMessage notice={notice} alert={alert} />
         <div className="wrapper-seventy">
           <div className="u-paddingTop5">
@@ -47,7 +46,7 @@ const OriginFileForm = React.createClass({
 
           <div className="simple-form u-paddingTop10 u-paddingBottom8" style={{"height": "800px"}}>
             <h2>{`Template: ${template.name}`}</h2>
-            <div className="centered" style={{ "fontSize": "1.3em", "fontWeight": "bold" }}>
+            <div className="u-textCenter" style={{ "fontSize": "1.3em", "fontWeight": "bold" }}>
               {`${originFile.id ? '' : 'New '}Origin File:`}
             </div>
             <form>

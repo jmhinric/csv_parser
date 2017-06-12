@@ -5,7 +5,7 @@ Rails.application.routes.draw do
 
   resources :templates do
     post 'execute', on: :member
-    resources :data_transfers, only: [:index, :destroy]
+    resources :data_transfers, only: [:index, :update, :destroy]
     resources :origin_files, only: [:new, :create, :edit, :update, :destroy] do
       resources :data_transfers, only: [:new, :create]
     end

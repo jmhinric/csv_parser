@@ -44,9 +44,8 @@ const TemplateForm = React.createClass({
   render() {
     const { template, notice, alert } = this.props;
 
-    // TODO remove 800px styling once background image styling has been fixed.
     return (
-      <div className="grid-paper-background">
+      <div>
         <FlashMessage notice={notice} alert={alert} />
         <div className="wrapper-seventy">
           <div className="u-paddingTop5">
