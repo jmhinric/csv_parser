@@ -36,7 +36,7 @@ class OriginFilesController < ApplicationController
     if @origin_file.update!(name: origin_file_params['name'])
       flash[:notice] = "Successfully updated!"
     else
-      flash[:alert] = "The origin file could not be updated. #{@origin_file.errors.messages}"
+      flash[:alert] = "The origin file could not be updated. #{@origin_file.errors.full_messages}"
     end
 
     redirect_to template_path(@template)
@@ -46,7 +46,7 @@ class OriginFilesController < ApplicationController
     if @origin_file.destroy!
       flash[:notice] = "Successfully deleted!"
     else
-      flash[:alert] = "The origin file could not be deleted. #{@origin_file.errors.messages}"
+      flash[:alert] = "The origin file could not be deleted. #{@origin_file.errors.full_messages}"
     end
     redirect_to template_path(@template)
   end

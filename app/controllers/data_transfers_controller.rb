@@ -39,7 +39,7 @@ class DataTransfersController < ApplicationController
         origin_file.save!
         flash[:notice] = "Successfully saved!"
       else
-        flash[:alert] = "The data transfer could not be saved. #{data_transfer.errors.messages}"
+        flash[:alert] = "The data transfer could not be saved. #{data_transfer.errors.full_messages}"
       end
     end
 
@@ -57,10 +57,11 @@ class DataTransfersController < ApplicationController
     dcr.begin_value = destination_cell_range_param['begin_value']
     dcr.end_value = destination_cell_range_param['end_value']
 
-    if (ocr.save! && dcr.save!)
+    if (data_transfer.valid?)
+      data_transfer.save
       flash[:notice] = "Successfully updated!"
     else
-      flash[:alert] = "The data transfer could not be updated. #{data_transfer.errors.messages}"
+      flash[:alert] = "The data transfer could not be updated. #{data_transfer.errors.full_messages}"
     end
     redirect_to template_data_transfers_path(template)
   end
@@ -70,7 +71,7 @@ class DataTransfersController < ApplicationController
     if data_transfer.destroy!
       flash[:notice] = "Successfully deleted!"
     else
-      flash[:alert] = "The data transfer could not be deleted. #{data_transfer.errors.messages}"
+      flash[:alert] = "The data transfer could not be deleted. #{data_transfer.errors.full_messages}"
     end
     redirect_to template_data_transfers_path(template)
   end

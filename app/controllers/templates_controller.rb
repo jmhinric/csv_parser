@@ -56,7 +56,7 @@ class TemplatesController < ApplicationController
     if template.update!(new_update_template_params.slice(:name, :description))
       flash[:notice] = "Successfully updated!"
     else
-      flash[:alert] = "The template could not be updated. #{template.errors.messages}"
+      flash[:alert] = "The template could not be updated. #{template.errors.full_messages}"
     end
 
     redirect_to template_path(template)
@@ -66,7 +66,7 @@ class TemplatesController < ApplicationController
     if template.destroy!
       flash[:notice] = "Successfully deleted!"
     else
-      flash[:alert] = "The template could not be deleted. #{template.errors.messages}"
+      flash[:alert] = "The template could not be deleted. #{template.errors.full_messages}"
     end
     redirect_to templates_path
   end
