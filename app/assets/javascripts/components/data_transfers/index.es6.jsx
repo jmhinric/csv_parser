@@ -30,7 +30,13 @@ const DataTransferIndex = React.createClass({
           </section>
 
           <section>
-            <h2 className="u-textCenter">Data transfers:</h2>
+            <div className="u-textCenter">
+              <h2>Data transfers:</h2>
+              <span style={{ fontSize: "12px" }}>
+                * Worksheet index numbering begins at zero.
+              </span>
+            </div>
+
 
             {
               originFiles.map((originFile) => {
