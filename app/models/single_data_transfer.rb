@@ -10,4 +10,7 @@
 #
 
 class SingleDataTransfer < DataTransfer
+  def transfer_type
+    'single'
+  end
 end

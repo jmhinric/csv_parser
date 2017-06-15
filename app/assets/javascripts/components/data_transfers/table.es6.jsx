@@ -1,6 +1,6 @@
 const { PropTypes } = React;
 
-const DisplayRow = ({ dataTransfer, classNames, templateId }) => {
+const DisplayRow = ({ dataTransfer, classNames, templateId, handleToggleEdit, showControls }) => {
   const baseClassNames = "Grid-cell u-size1of8 u-paddingTopBottom1 u-paddingLeft2";
   const classes = `${baseClassNames} ${classNames}`;
 
@@ -35,7 +35,17 @@ const DisplayRow = ({ dataTransfer, classNames, templateId }) => {
         {dataTransfer.destinationCellRange.endValue || '-'}
       </div>
       <div className="Grid-cell u-size1of8">
-        <div onClick={handleDelete} className="u-marginTop1pt5 u-marginLeft0pt5 x-icon">x</div>
+        { showControls &&
+          <div className="u-marginTop1pt5">
+            <span onClick={handleDelete} className="u-marginLeft0pt5 u-posAbsolute x-icon">x</span>
+            <span
+              onClick={() => handleToggleEdit(dataTransfer.id)}
+              className="u-marginLeft2 u-posAbsolute small-link"
+            >
+              Edit
+            </span>
+          </div>
+        }
       </div>
     </div>
   );
@@ -54,7 +64,8 @@ const DataTransferTable = React.createClass({
         destinationCellRange: {},
         type: 'range'
       },
-      addingTransfer: false
+      addingTransfer: false,
+      editingTransferId: undefined
     }
   },
 
@@ -62,10 +73,15 @@ const DataTransferTable = React.createClass({
     this.setState({ addingTransfer: !this.state.addingTransfer });
   },
 
+  handleToggleEdit(id) {
+    const updateId = this.state.editingTransferId === id ? undefined : id;
+    this.setState({ editingTransferId: updateId })
+  },
+
   // TODO: refactor component composition to avoid hack of constructing the border
   render() {
     const { template, originFile } = this.props;
-    const { addingTransfer, editingDataTransferId, newTransfer } = this.state;
+    const { addingTransfer, editingTransferId, newTransfer } = this.state;
     let transfers = originFile.dataTransfers;
     const headerClassNames = "Grid-cell u-size1of8 light-gray-background" +
       " u-paddingTopBottom1 u-paddingLeft2" + ` ${transfers.length === 0 && !addingTransfer && 'borderBottom'}`;
@@ -105,14 +121,30 @@ const DataTransferTable = React.createClass({
             transfers.map((dataTransfer, index) => {
               let classNames = index % 2 != 0 ? 'lighter-gray-background' : '';
               if (!addingTransfer) classNames += ' borderBottom';
-              return (
-                <DisplayRow
-                  key={`${dataTransfer.id}`}
-                  dataTransfer={dataTransfer}
-                  classNames={classNames}
-                  templateId={template.id}
-                />
-              );
+              if (editingTransferId === dataTransfer.id) {
+                return (
+                  <DataTransferCreateEditRow
+                    key="new"
+                    dataTransfer={dataTransfer}
+                    classNames={`borderBottom ${transfers.length % 2 !== 0 && 'lighter-gray-background'}`}
+                    templateId={template.id}
+                    originFileId={originFile.id}
+                    handleToggleEdit={this.handleToggleEdit}
+                  />
+                )
+              }
+              else {
+                return (
+                  <DisplayRow
+                    key={`${dataTransfer.id}`}
+                    dataTransfer={dataTransfer}
+                    classNames={classNames}
+                    templateId={template.id}
+                    handleToggleEdit={this.handleToggleEdit}
+                    showControls={!editingTransferId && !addingTransfer}
+                  />
+                )
+              }
             })
           }
           <React.addons.CSSTransitionGroup
@@ -133,7 +165,7 @@ const DataTransferTable = React.createClass({
           </React.addons.CSSTransitionGroup>
         </div>
 
-        <div className="u-paddingBottom1 u-posCenter">
+        <div className="u-paddingBottom1 u-textCenter">
           <a className="small-link" onClick={this.handleAddRemoveDataTransfer}>
             {`${addingTransfer ? 'Hide' : 'Add data transfer'}`}
           </a>

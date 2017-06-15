@@ -1,7 +1,7 @@
 const { PropTypes } = React;
 
 const BackNav = ({ template }) => (
-  <div className="u-paddingTop5 u-paddingBottom3">
+  <div className="u-paddingTop5">
     <a href={`/templates/${template.id}`} className="small-link">{`Back to ${template.name}`}</a>
   </div>
 );
@@ -19,20 +19,18 @@ const DataTransferIndex = React.createClass({
     const { template, originFiles, notice, alert } = this.props;
 
     return (
-      <main id="template-show" className="grid-paper-background">
+      <main>
         <FlashMessage notice={notice} alert={alert} />
         <div className="wrapper-seventy">
           <BackNav template={template} />
 
-          <section className="template-info">
-            <div className="template-header">
-              <h2>{template.name}</h2>
-              <p>{template.description}</p>
-            </div>
+          <section className="u-textCenter u-paddingTop10 u-paddingBottom4">
+            <h2>{template.name}</h2>
+            <p>{template.description}</p>
           </section>
 
-          <section className="data-transfers-info">
-            <h2>Data transfers:</h2>
+          <section>
+            <h2 className="u-textCenter">Data transfers:</h2>
 
             {
               originFiles.map((originFile) => {

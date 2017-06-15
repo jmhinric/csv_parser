@@ -5,7 +5,8 @@ const DataTransferCreateEditRow = React.createClass({
     dataTransfer: PropTypes.object.isRequired,
     classNames: PropTypes.string.isRequired,
     templateId: PropTypes.string.isRequired,
-    originFileId: PropTypes.string.isRequired
+    originFileId: PropTypes.string.isRequired,
+    handleToggleEdit: PropTypes.func
   },
 
   getInitialState() {
@@ -46,9 +47,10 @@ const DataTransferCreateEditRow = React.createClass({
     const {
       templateId,
       originFileId,
+      dataTransfer,
       dataTransfer: { type, originCellRange, destinationCellRange }
     } = this.props;
-    const saveRoute = `/templates/${templateId}/origin_files/${originFileId}/data_transfers`;
+    const baseRoute = `/templates/${templateId}`;
     const dataTransferParam = {
       type: type,
       origin_cell_range: {
@@ -63,22 +65,35 @@ const DataTransferCreateEditRow = React.createClass({
       }
     };
 
-    $.post(saveRoute, { data_transfer: dataTransferParam });
+    if (dataTransfer.id) {
+      $.ajax({
+        type: "PATCH",
+        url: baseRoute + `/data_transfers/${dataTransfer.id}`,
+        data: { data_transfer: dataTransferParam }
+      })
+    }
+    else {
+      $.post(
+        baseRoute + `/origin_files/${originFileId}/data_transfers`,
+        { data_transfer: dataTransferParam }
+      );
+    }
   },
 
   render() {
     const baseClassNames = "Grid-cell u-size1of8 u-paddingTopBottom1 u-paddingLeftRight0pt5";
-    const { dataTransfer, classNames } = this.props;
+    const { dataTransfer, classNames, handleToggleEdit } = this.props;
     const { type } = this.state;
 
     return (
       <div key={`${dataTransfer.id}-type`} className="Grid">
         <div className={baseClassNames}>
           <select
-            className="u-paddingTopBottom0pt5"
+            className={`u-paddingTopBottom0pt5 ${handleToggleEdit && 'cursor-not-allowed'}`}
             onChange={this.handleSelectChange}
             style={{ width: "100%" }}
             value={type}
+            disabled={handleToggleEdit}
           >
             <option value="range">Range</option>
             <option value="single">Single</option>
@@ -109,13 +124,23 @@ const DataTransferCreateEditRow = React.createClass({
           })
         }
         <div className="Grid-cell u-size1of8">
-          <input
-            type="submit"
-            onClick={this.handleSubmit}
-            className="submit-button button u-marginTopBottom1pt5 u-paddingTopBottom0pt5"
-            style={{ width: "70px" }}
-            value="Save"
-          />
+          <div className="u-marginTop1pt5">
+            <input
+              type="submit"
+              onClick={this.handleSubmit}
+              className={`u-posAbsolute submit-button button u-marginTopBottom0 u-paddingTopBottom0pt5 ${handleToggleEdit ? 'u-marginLeft3' : 'u-marginLeft0pt75'}`}
+              style={{ width: "70px" }}
+              value="Save"
+            />
+            { handleToggleEdit &&
+              <span
+                onClick={() => handleToggleEdit(dataTransfer.id)}
+                className="u-marginLeft0pt75 u-marginTop1 u-posAbsolute small-link"
+              >
+                Cancel
+              </span>
+            }
+          </div>
         </div>
       </div>
     );
