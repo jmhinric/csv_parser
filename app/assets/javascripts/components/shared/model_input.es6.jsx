@@ -20,7 +20,8 @@ const ModelInput = React.createClass({
 
   getInitialState() {
     const { model, attribute } = this.props;
-    return { value: model[attribute].toString() || '' };
+    let val = model[attribute];
+    return { value: val || val === 0 ? val.toString() : '' };
   },
 
   handleChange(e) {
