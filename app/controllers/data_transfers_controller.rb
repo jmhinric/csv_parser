@@ -58,6 +58,8 @@ class DataTransfersController < ApplicationController
     dcr.end_value = destination_cell_range_param['end_value']
 
     if (data_transfer.valid?)
+      ocr.save!
+      dcr.save!
       data_transfer.save
       flash[:notice] = "Successfully updated!"
     else
@@ -85,8 +87,8 @@ class DataTransfersController < ApplicationController
       data_transfer: [
         :id,
         :type,
-        origin_cell_range: [:worksheet_index, :begin_value, :end_value],
-        destination_cell_range: [:worksheet_index, :begin_value, :end_value]
+        origin_cell_range: [:id, :worksheet_index, :begin_value, :end_value],
+        destination_cell_range: [:id, :worksheet_index, :begin_value, :end_value]
       ]
     )
   end
