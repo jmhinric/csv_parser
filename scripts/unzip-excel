@@ -1,0 +1,15 @@
+#!/bin/sh
+
+file=$1
+filename=$(basename "$file")
+dirname="${filename%.xlsx}"
+
+echo "Unzipping file..."
+unzip "$fil" -d "$dirname"
+
+echo "Prepping XML documents..."
+for f in $( find "$dirname" - name " *.xml" -not -name "*-formatted.xml" ) ; do
+    echo "  $f"
+    g="${f%.xml}-formatted.xml"
+    xmllint --format "$f" > "$g"
+done
